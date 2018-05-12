@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="60e13b76787048b9b0a7236d39611d76" Name="Diagram1">
+        <EntityTypeShape EntityType="HomeCareDb.Caretaker" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HomeCareDb.Patient" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HomeCareDb.Patient_PersonalContact" Width="1.5" PointX="12" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HomeCareDb.Patient_ServiceContact" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HomeCareDb.PersonalContact" Width="1.5" PointX="9.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="HomeCareDb.Request" Width="1.5" PointX="5.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HomeCareDb.Request_Patient" Width="1.5" PointX="8" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HomeCareDb.Role" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HomeCareDb.ServiceContact" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="HomeCareDb.sysdiagram" Width="1.5" PointX="9.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HomeCareDb.User" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HomeCareDb.Visit" Width="1.5" PointX="7.5" PointY="2.875" IsExpanded="true" />
+        <AssociationConnector Association="HomeCareDb.FK_Caretaker_User" ManuallyRouted="false" />
+        <AssociationConnector Association="HomeCareDb.FK_Visit_Caretaker" ManuallyRouted="false" />
+        <AssociationConnector Association="HomeCareDb.FK_Patient_User" ManuallyRouted="false" />
+        <AssociationConnector Association="HomeCareDb.FK_Visit_Patient" ManuallyRouted="false" />
+        <AssociationConnector Association="HomeCareDb.FK_Patient_PersonalContact_PersonalContact" ManuallyRouted="false" />
+        <AssociationConnector Association="HomeCareDb.FK_Patient_ServiceContact_ServiceContact" ManuallyRouted="false" />
+        <AssociationConnector Association="HomeCareDb.FK_Request_Patient_Request" ManuallyRouted="false" />
+        <AssociationConnector Association="HomeCareDb.FK_User_Role" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

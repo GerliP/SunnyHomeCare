@@ -79,7 +79,10 @@ namespace SunnyHomeCare.Controllers
 
                 else
                 {
-                    return RedirectToAction("Login", "Login");
+                    int id = user.Id;
+                    System.Diagnostics.Debug.WriteLine("ÍDAfter: " + id);
+
+                    return RedirectToAction("AdminCaretakerCreate", new { id });
                 }
             }
             else
@@ -89,6 +92,50 @@ namespace SunnyHomeCare.Controllers
             }
         }
 
+        public ActionResult AdminCaretakerCreate(int id)
+        {
+
+            ViewBag.UserId = id;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AdminCaretakerCreate([Bind(Include = "Id,User_id,Date_of_Employment")]Caretaker caretaker)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Caretakers.Add(caretaker);
+                db.SaveChanges();
+                int id = caretaker.Id;
+                ViewBag.Message = "Success";
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.CaretakerId = caretaker.Id;
+                ViewBag.Message = "Failure!!";
+
+                return View();
+            }
+          
+        }
+
+        public ActionResult AdminPersonalContactCreate(int id)
+        {
+            ViewBag.PatientId = id; 
+           
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AdminPersonalContactCreate([Bind(Include = "Id,UserId,BloodType,Dislikes,Comments,Illness,Handicap")]PersonalContact personalContact)
+           
+        {
+            
+            return View();
+        }
+
+
         public ActionResult AdminPatientCreate(int id)
         {
 
@@ -96,7 +143,7 @@ namespace SunnyHomeCare.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AdminPatientCreate([Bind(Include = "Id,UserId,BloodType,Dislikes,Comments,Illness,Handicap")]Patient patient)
+        public ActionResult AdminPatientCreate([Bind(Include = "Id,Firstname,Lastname,PhoneNumber,Address, Email, Relation,OtherInfo")]Patient patient)
         {
             if (ModelState.IsValid)
             {
@@ -114,24 +161,8 @@ namespace SunnyHomeCare.Controllers
 
                 return View();
             }
-          
-        }
 
-        public ActionResult AdminPersonalContactCreate(int id)
-        {
-            ViewBag.PatientId = id; 
-           
-            return View();
         }
-
-        [HttpPost]
-        public ActionResult AdminPersonalContactCreate(alldata, id)
-            // pass the Contact details together with the patient id.
-        {
-            
-            return View();
-        }
-
 
         // GET: Admin/Edit/5
         public ActionResult Edit(int? id)

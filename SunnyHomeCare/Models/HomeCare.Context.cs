@@ -27,8 +27,11 @@ namespace SunnyHomeCare.Models
     
         public virtual DbSet<Caretaker> Caretakers { get; set; }
         public virtual DbSet<Patient> Patients { get; set; }
+        public virtual DbSet<Patient_PersonalContact> Patient_PersonalContact { get; set; }
+        public virtual DbSet<Patient_ServiceContact> Patient_ServiceContact { get; set; }
         public virtual DbSet<PersonalContact> PersonalContacts { get; set; }
         public virtual DbSet<Request> Requests { get; set; }
+        public virtual DbSet<Request_Patient> Request_Patient { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<ServiceContact> ServiceContacts { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }

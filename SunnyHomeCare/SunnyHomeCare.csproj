@@ -47,10 +47,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -158,46 +158,55 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Caretaker.cs">
-      <DependentUpon>HomeCareDb.tt</DependentUpon>
+      <DependentUpon>HomeCare.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\HomeCareDb.Context.cs">
+    <Compile Include="Models\HomeCare.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HomeCareDb.Context.tt</DependentUpon>
+      <DependentUpon>HomeCare.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\HomeCareDb.cs">
+    <Compile Include="Models\HomeCare.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HomeCareDb.tt</DependentUpon>
+      <DependentUpon>HomeCare.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\HomeCareDb.Designer.cs">
+    <Compile Include="Models\HomeCare.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HomeCareDb.edmx</DependentUpon>
+      <DependentUpon>HomeCare.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Patient.cs">
-      <DependentUpon>HomeCareDb.tt</DependentUpon>
+      <DependentUpon>HomeCare.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Patient_PersonalContact.cs">
+      <DependentUpon>HomeCare.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Patient_ServiceContact.cs">
+      <DependentUpon>HomeCare.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PersonalContact.cs">
-      <DependentUpon>HomeCareDb.tt</DependentUpon>
+      <DependentUpon>HomeCare.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Request.cs">
-      <DependentUpon>HomeCareDb.tt</DependentUpon>
+      <DependentUpon>HomeCare.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Request_Patient.cs">
+      <DependentUpon>HomeCare.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Role.cs">
-      <DependentUpon>HomeCareDb.tt</DependentUpon>
+      <DependentUpon>HomeCare.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ServiceContact.cs">
-      <DependentUpon>HomeCareDb.tt</DependentUpon>
+      <DependentUpon>HomeCare.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>HomeCareDb.tt</DependentUpon>
+      <DependentUpon>HomeCare.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>HomeCareDb.tt</DependentUpon>
+      <DependentUpon>HomeCare.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Visit.cs">
-      <DependentUpon>HomeCareDb.tt</DependentUpon>
+      <DependentUpon>HomeCare.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -208,27 +217,27 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\HomeCareDb.Context.tt">
+    <Content Include="Models\HomeCare.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HomeCareDb.edmx</DependentUpon>
-      <LastGenOutput>HomeCareDb.Context.cs</LastGenOutput>
+      <DependentUpon>HomeCare.edmx</DependentUpon>
+      <LastGenOutput>HomeCare.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\HomeCareDb.tt">
+    <Content Include="Models\HomeCare.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HomeCareDb.edmx</DependentUpon>
-      <LastGenOutput>HomeCareDb.cs</LastGenOutput>
+      <DependentUpon>HomeCare.edmx</DependentUpon>
+      <LastGenOutput>HomeCare.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Models\HomeCareDb.edmx">
+    <EntityDeploy Include="Models\HomeCare.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>HomeCareDb.Designer.cs</LastGenOutput>
+      <LastGenOutput>HomeCare.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\HomeCareDb.edmx.diagram">
-      <DependentUpon>HomeCareDb.edmx</DependentUpon>
+    <Content Include="Models\HomeCare.edmx.diagram">
+      <DependentUpon>HomeCare.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -241,7 +250,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -272,6 +283,7 @@
     <Content Include="Views\Admin\_ViewStart.cshtml" />
     <Content Include="Views\Admin\AdminPatientCreate.cshtml" />
     <Content Include="Views\Admin\AdminPersonalContactCreate.cshtml" />
+    <Content Include="Views\Admin\AdminCaretakerCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

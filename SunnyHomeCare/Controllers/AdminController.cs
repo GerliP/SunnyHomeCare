@@ -142,7 +142,9 @@ namespace SunnyHomeCare.Controllers
             ViewBag.UserId = id;
             return View();
         }
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AdminPatientCreate([Bind(Include = "Id,UserId,BloodType,Dislikes,Comments,Illness,Handicap")]Patient patient)
         {
             if (ModelState.IsValid)

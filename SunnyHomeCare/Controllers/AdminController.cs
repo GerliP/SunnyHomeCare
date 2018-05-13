@@ -128,7 +128,7 @@ namespace SunnyHomeCare.Controllers
         }
 
         [HttpPost]
-        public ActionResult AdminPersonalContactCreate([Bind(Include = "Id,UserId,BloodType,Dislikes,Comments,Illness,Handicap")]PersonalContact personalContact)
+        public ActionResult AdminPersonalContactCreate([Bind(Include = "Id,Firstname,Lastname,PhoneNumber,Address, Email,Relation,OtherInfo")]PersonalContact personalContact)
            
         {
             
@@ -143,7 +143,7 @@ namespace SunnyHomeCare.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AdminPatientCreate([Bind(Include = "Id,Firstname,Lastname,PhoneNumber,Address, Email, Relation,OtherInfo")]Patient patient)
+        public ActionResult AdminPatientCreate([Bind(Include = "Id,UserId,BloodType,Dislikes,Comments,Illness,Handicap")]Patient patient)
         {
             if (ModelState.IsValid)
             {

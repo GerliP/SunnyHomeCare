@@ -178,28 +178,16 @@
     <Compile Include="Models\Patient.cs">
       <DependentUpon>HomeCare.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Patient_PersonalContact.cs">
-      <DependentUpon>HomeCare.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Patient_ServiceContact.cs">
-      <DependentUpon>HomeCare.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\PersonalContact.cs">
       <DependentUpon>HomeCare.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Request.cs">
       <DependentUpon>HomeCare.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Request_Patient.cs">
-      <DependentUpon>HomeCare.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Role.cs">
       <DependentUpon>HomeCare.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ServiceContact.cs">
-      <DependentUpon>HomeCare.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>HomeCare.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
@@ -239,6 +227,7 @@
     <Content Include="Models\HomeCare.edmx.diagram">
       <DependentUpon>HomeCare.edmx</DependentUpon>
     </Content>
+    <Content Include="ConnectionStrings.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

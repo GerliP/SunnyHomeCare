@@ -12,7 +12,7 @@ namespace SunnyHomeCare.Controllers
 {
     public class CaretakerController : Controller
     {
-        private MyDbContext db = new MyDbContext();
+        private HomeCare db = new HomeCare();
 
         // GET: Caretaker
         public ActionResult Index()

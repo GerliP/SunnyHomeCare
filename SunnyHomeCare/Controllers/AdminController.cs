@@ -12,7 +12,7 @@ namespace SunnyHomeCare.Controllers
 {
     public class AdminController : Controller
     {
-        private MyDbContext db = new MyDbContext();
+        private HomeCare db = new HomeCare();
 
         // GET: Admin
         public ActionResult Index()

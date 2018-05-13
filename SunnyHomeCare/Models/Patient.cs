@@ -18,10 +18,13 @@ namespace SunnyHomeCare.Models
         public Patient()
         {
             this.Visits = new HashSet<Visit>();
+            this.PersonalContacts = new HashSet<PersonalContact>();
+            this.ServiceContacts = new HashSet<ServiceContact>();
+            this.Requests = new HashSet<Request>();
         }
     
         public int Id { get; set; }
-        public Nullable<int> UserId { get; set; }
+        public int UserId { get; set; }
         public string BloodType { get; set; }
         public string Dislikes { get; set; }
         public string Comments { get; set; }
@@ -31,5 +34,11 @@ namespace SunnyHomeCare.Models
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Visit> Visits { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PersonalContact> PersonalContacts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ServiceContact> ServiceContacts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Request> Requests { get; set; }
     }
 }

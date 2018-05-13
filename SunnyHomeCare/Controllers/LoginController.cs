@@ -7,7 +7,7 @@ namespace SunnyHomeCare.Controllers
 {
     public class LoginController : Controller
     {
-        private MyDbContext db = new MyDbContext();
+        private HomeCare db = new HomeCare();
 
         public ActionResult Login()
         {
@@ -17,6 +17,7 @@ namespace SunnyHomeCare.Controllers
         [HttpPost]
         public ActionResult Login(SunnyHomeCare.Models.User user)
         {
+
             var userDetails = db.Users.Where(m => m.Email == user.Email && m.Password == user.Password).FirstOrDefault();
             if (userDetails == null)
             {

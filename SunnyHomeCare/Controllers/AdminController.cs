@@ -128,11 +128,24 @@ namespace SunnyHomeCare.Controllers
         }
 
         [HttpPost]
-        public ActionResult AdminPersonalContactCreate([Bind(Include = "Id,Firstname,Lastname,PhoneNumber,Address, Email,Relation,OtherInfo")]PersonalContact personalContact)
+        [ValidateAntiForgeryToken]
+        public ActionResult AdminPersonalContactCreate([Bind(Include = "Id,Firstname,Lastname,PhoneNumber,Address,Email,Relation,OtherInfo")]PersonalContact personalContact, int patientId)
            
         {
-            
+            if (ModelState.IsValid)
+            {
+                db.PersonalContacts.Add(personalContact);
+                db.SaveChanges();
+
+                Patient patient = db.Patients.Find(patientId);
+                patient.PersonalContacts.Add(personalContact);
+                db.SaveChanges();
+
+                ViewBag.PatientId = patientId;
+                return View();
+            }
             return View();
+
         }
 
 

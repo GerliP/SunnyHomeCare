@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HomeCareModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="HomeCareModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Caretaker">
           <Key>
             <PropertyRef Name="Id" />
@@ -45,9 +45,9 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Firstname" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Lastname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Firstname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Lastname" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="PhoneNumber" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
@@ -123,7 +123,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Patient_PersonalContact_Patient">
+        <Association Name="FK_Patient_PersonalContact_Patient1">
           <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
           <End Role="Patient_PersonalContact" Type="Self.Patient_PersonalContact" Multiplicity="*" />
           <ReferentialConstraint>
@@ -135,7 +135,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Patient_PersonalContact_PersonalContact">
+        <Association Name="FK_Patient_PersonalContact_PersonalContact1">
           <End Role="PersonalContact" Type="Self.PersonalContact" Multiplicity="1" />
           <End Role="Patient_PersonalContact" Type="Self.Patient_PersonalContact" Multiplicity="*" />
           <ReferentialConstraint>
@@ -259,11 +259,11 @@
             <End Role="User" EntitySet="User" />
             <End Role="Caretaker" EntitySet="Caretaker" />
           </AssociationSet>
-          <AssociationSet Name="FK_Patient_PersonalContact_Patient" Association="Self.FK_Patient_PersonalContact_Patient">
+          <AssociationSet Name="FK_Patient_PersonalContact_Patient1" Association="Self.FK_Patient_PersonalContact_Patient1">
             <End Role="Patient" EntitySet="Patient" />
             <End Role="Patient_PersonalContact" EntitySet="Patient_PersonalContact" />
           </AssociationSet>
-          <AssociationSet Name="FK_Patient_PersonalContact_PersonalContact" Association="Self.FK_Patient_PersonalContact_PersonalContact">
+          <AssociationSet Name="FK_Patient_PersonalContact_PersonalContact1" Association="Self.FK_Patient_PersonalContact_PersonalContact1">
             <End Role="PersonalContact" EntitySet="PersonalContact" />
             <End Role="Patient_PersonalContact" EntitySet="Patient_PersonalContact" />
           </AssociationSet>
@@ -300,8 +300,7 @@
             <End Role="Visit" EntitySet="Visit" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HomeCareModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -337,8 +336,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />

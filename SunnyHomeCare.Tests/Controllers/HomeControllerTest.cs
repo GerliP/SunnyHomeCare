@@ -13,42 +13,29 @@ namespace SunnyHomeCare.Tests.Controllers
     public class HomeControllerTest
     {
         [TestMethod]
-        public void Index()
+        public void Login()
         {
             // Arrange
             LoginController controller = new LoginController();
 
             // Act
-            ViewResult result = controller.Index() as ViewResult;
+            ViewResult result = controller.Login() as ViewResult;
 
             // Assert
             Assert.IsNotNull(result);
         }
-
+/*
         [TestMethod]
-        public void About()
+        public void Logout()
         {
             // Arrange
             LoginController controller = new LoginController();
 
             // Act
-            ViewResult result = controller.About() as ViewResult;
-
-            // Assert
-            Assert.AreEqual("Your application description page.", result.ViewBag.Message);
-        }
-
-        [TestMethod]
-        public void Contact()
-        {
-            // Arrange
-            LoginController controller = new LoginController();
-
-            // Act
-            ViewResult result = controller.Contact() as ViewResult;
+            ViewResult result = controller.Logout(user) as ViewResult;
 
             // Assert
             Assert.IsNotNull(result);
-        }
+        }*/
     }
 }

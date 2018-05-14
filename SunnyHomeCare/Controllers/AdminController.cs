@@ -32,15 +32,22 @@ namespace SunnyHomeCare.Controllers
         // GET: Admin/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (Session["Id"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            else if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             User user = db.Users.Find(id);
+            var role = user.Role.Name;
             if (user == null)
             {
                 return HttpNotFound();
             }
+
+            ViewBag.Role_Name = role;
             return View(user);
         }
 

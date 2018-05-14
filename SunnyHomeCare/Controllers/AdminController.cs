@@ -12,7 +12,7 @@ namespace SunnyHomeCare.Controllers
 {
     public class AdminController : Controller
     {
-        private MyDbContext db = new MyDbContext();
+        private HomeCare db = new HomeCare();
 
         // GET: Admin
         public ActionResult Index()
@@ -128,11 +128,24 @@ namespace SunnyHomeCare.Controllers
         }
 
         [HttpPost]
-        public ActionResult AdminPersonalContactCreate([Bind(Include = "Id,Firstname,Lastname,PhoneNumber,Address, Email,Relation,OtherInfo")]PersonalContact personalContact)
+        [ValidateAntiForgeryToken]
+        public ActionResult AdminPersonalContactCreate([Bind(Include = "Id,Firstname,Lastname,PhoneNumber,Address,Email,Relation,OtherInfo")]PersonalContact personalContact, int patientId)
            
         {
-            
+            if (ModelState.IsValid)
+            {
+                db.PersonalContacts.Add(personalContact);
+                db.SaveChanges();
+
+                Patient patient = db.Patients.Find(patientId);
+                patient.PersonalContacts.Add(personalContact);
+                db.SaveChanges();
+
+                ViewBag.PatientId = patientId;
+                return View();
+            }
             return View();
+
         }
 
 
@@ -142,7 +155,9 @@ namespace SunnyHomeCare.Controllers
             ViewBag.UserId = id;
             return View();
         }
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AdminPatientCreate([Bind(Include = "Id,UserId,BloodType,Dislikes,Comments,Illness,Handicap")]Patient patient)
         {
             if (ModelState.IsValid)

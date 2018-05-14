@@ -17,7 +17,7 @@ namespace SunnyHomeCare.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ServiceContact()
         {
-            this.Patient_ServiceContact = new HashSet<Patient_ServiceContact>();
+            this.Patients = new HashSet<Patient>();
         }
     
         public int Id { get; set; }
@@ -29,6 +29,6 @@ namespace SunnyHomeCare.Models
         public string JobTitle { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Patient_ServiceContact> Patient_ServiceContact { get; set; }
+        public virtual ICollection<Patient> Patients { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace SunnyHomeCare.Controllers
 {
     public class PatientController : Controller
     {
-        private MyDbContext db = new MyDbContext();
+        private HomeCare db = new HomeCare();
 
         // GET: Patinet
         public ActionResult Index()

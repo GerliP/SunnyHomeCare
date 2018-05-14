@@ -21,7 +21,7 @@ namespace SunnyHomeCare.Models
         }
     
         public int Id { get; set; }
-        public Nullable<int> User_id { get; set; }
+        public int User_id { get; set; }
         public Nullable<System.DateTime> Date_of_employemnt { get; set; }
     
         public virtual User User { get; set; }

@@ -14,12 +14,6 @@ namespace SunnyHomeCare.Models
     
     public partial class ServiceContact
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ServiceContact()
-        {
-            this.Patient_ServiceContact = new HashSet<Patient_ServiceContact>();
-        }
-    
         public int Id { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
@@ -27,8 +21,8 @@ namespace SunnyHomeCare.Models
         public string PhoneNumber { get; set; }
         public string OtherInfo { get; set; }
         public string JobTitle { get; set; }
+        public int PatientId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Patient_ServiceContact> Patient_ServiceContact { get; set; }
+        public virtual Patient Patient { get; set; }
     }
 }

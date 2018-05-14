@@ -7,8 +7,6 @@
       <Diagram DiagramId="60e13b76787048b9b0a7236d39611d76" Name="Diagram1">
         <EntityTypeShape EntityType="HomeCareDb.Caretaker" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="HomeCareDb.Patient" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="HomeCareDb.Patient_PersonalContact" Width="1.5" PointX="12" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="HomeCareDb.Patient_ServiceContact" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
         <EntityTypeShape EntityType="HomeCareDb.PersonalContact" Width="1.5" PointX="9.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="HomeCareDb.Request" Width="1.5" PointX="5.75" PointY="7.875" IsExpanded="true" />
         <EntityTypeShape EntityType="HomeCareDb.Request_Patient" Width="1.5" PointX="8" PointY="7.875" IsExpanded="true" />
@@ -21,10 +19,10 @@
         <AssociationConnector Association="HomeCareDb.FK_Visit_Caretaker" ManuallyRouted="false" />
         <AssociationConnector Association="HomeCareDb.FK_Patient_User" ManuallyRouted="false" />
         <AssociationConnector Association="HomeCareDb.FK_Visit_Patient" ManuallyRouted="false" />
-        <AssociationConnector Association="HomeCareDb.FK_Patient_PersonalContact_PersonalContact" ManuallyRouted="false" />
-        <AssociationConnector Association="HomeCareDb.FK_Patient_ServiceContact_ServiceContact" ManuallyRouted="false" />
         <AssociationConnector Association="HomeCareDb.FK_Request_Patient_Request" ManuallyRouted="false" />
         <AssociationConnector Association="HomeCareDb.FK_User_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="HomeCareDb.FK_PersonalContact_Patient" />
+        <AssociationConnector Association="HomeCareDb.FK_ServiceContact_Patient" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

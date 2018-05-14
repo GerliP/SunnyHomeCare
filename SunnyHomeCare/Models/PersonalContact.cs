@@ -14,12 +14,6 @@ namespace SunnyHomeCare.Models
     
     public partial class PersonalContact
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PersonalContact()
-        {
-            this.Patient_PersonalContact = new HashSet<Patient_PersonalContact>();
-        }
-    
         public int Id { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
@@ -28,8 +22,8 @@ namespace SunnyHomeCare.Models
         public string Email { get; set; }
         public string Relation { get; set; }
         public string OtherInfo { get; set; }
+        public int PatientId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Patient_PersonalContact> Patient_PersonalContact { get; set; }
+        public virtual Patient Patient { get; set; }
     }
 }

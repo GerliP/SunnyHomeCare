@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HomeCareDb.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="HomeCareDb.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Caretaker">
           <Key>
             <PropertyRef Name="Id" />
@@ -25,22 +25,6 @@
           <Property Name="Illness" Type="varchar" MaxLength="50" />
           <Property Name="Handicap" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="Patient_PersonalContact">
-          <Key>
-            <PropertyRef Name="PersonalContact" />
-            <PropertyRef Name="PatientID" />
-          </Key>
-          <Property Name="PersonalContact" Type="int" Nullable="false" />
-          <Property Name="PatientID" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Patient_ServiceContact">
-          <Key>
-            <PropertyRef Name="ServiceContactId" />
-            <PropertyRef Name="PatientId" />
-          </Key>
-          <Property Name="ServiceContactId" Type="int" Nullable="false" />
-          <Property Name="PatientId" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="PersonalContact">
           <Key>
             <PropertyRef Name="Id" />
@@ -49,10 +33,11 @@
           <Property Name="Firstname" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Lastname" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PhoneNumber" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Address" Type="text" Nullable="false" />
-          <Property Name="Email" Type="text" Nullable="false" />
-          <Property Name="Relation" Type="text" Nullable="false" />
-          <Property Name="OtherInfo" Type="text" />
+          <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Relation" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="OtherInfo" Type="varchar" MaxLength="50" />
+          <Property Name="PatientId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Request">
           <Key>
@@ -81,12 +66,13 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Firstname" Type="text" Nullable="false" />
-          <Property Name="Lastname" Type="text" Nullable="false" />
-          <Property Name="Email" Type="text" Nullable="false" />
+          <Property Name="Firstname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Lastname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="PhoneNumber" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="OtherInfo" Type="text" />
-          <Property Name="JobTitle" Type="text" Nullable="false" />
+          <Property Name="OtherInfo" Type="varchar" MaxLength="50" />
+          <Property Name="JobTitle" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PatientId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -135,34 +121,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Patient_PersonalContact_PersonalContact">
-          <End Role="PersonalContact" Type="Self.PersonalContact" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Patient_PersonalContact" Type="Self.Patient_PersonalContact" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PersonalContact">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Patient_PersonalContact">
-              <PropertyRef Name="PersonalContact" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Patient_ServiceContact_ServiceContact">
-          <End Role="ServiceContact" Type="Self.ServiceContact" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Patient_ServiceContact" Type="Self.Patient_ServiceContact" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ServiceContact">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Patient_ServiceContact">
-              <PropertyRef Name="ServiceContactId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Patient_User">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
@@ -172,6 +130,18 @@
             </Principal>
             <Dependent Role="Patient">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonalContact_Patient">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="PersonalContact" Type="Self.PersonalContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonalContact">
+              <PropertyRef Name="PatientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -186,6 +156,18 @@
             </Principal>
             <Dependent Role="Request_Patient">
               <PropertyRef Name="Request_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceContact_Patient">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="ServiceContact" Type="Self.ServiceContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ServiceContact">
+              <PropertyRef Name="PatientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -230,8 +212,6 @@
         <EntityContainer Name="HomeCareDbStoreContainer">
           <EntitySet Name="Caretaker" EntityType="Self.Caretaker" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Patient_PersonalContact" EntityType="Self.Patient_PersonalContact" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Patient_ServiceContact" EntityType="Self.Patient_ServiceContact" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonalContact" EntityType="Self.PersonalContact" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Request" EntityType="Self.Request" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Request_Patient" EntityType="Self.Request_Patient" Schema="dbo" store:Type="Tables" />
@@ -244,21 +224,21 @@
             <End Role="User" EntitySet="User" />
             <End Role="Caretaker" EntitySet="Caretaker" />
           </AssociationSet>
-          <AssociationSet Name="FK_Patient_PersonalContact_PersonalContact" Association="Self.FK_Patient_PersonalContact_PersonalContact">
-            <End Role="PersonalContact" EntitySet="PersonalContact" />
-            <End Role="Patient_PersonalContact" EntitySet="Patient_PersonalContact" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Patient_ServiceContact_ServiceContact" Association="Self.FK_Patient_ServiceContact_ServiceContact">
-            <End Role="ServiceContact" EntitySet="ServiceContact" />
-            <End Role="Patient_ServiceContact" EntitySet="Patient_ServiceContact" />
-          </AssociationSet>
           <AssociationSet Name="FK_Patient_User" Association="Self.FK_Patient_User">
             <End Role="User" EntitySet="User" />
             <End Role="Patient" EntitySet="Patient" />
           </AssociationSet>
+          <AssociationSet Name="FK_PersonalContact_Patient" Association="Self.FK_PersonalContact_Patient">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="PersonalContact" EntitySet="PersonalContact" />
+          </AssociationSet>
           <AssociationSet Name="FK_Request_Patient_Request" Association="Self.FK_Request_Patient_Request">
             <End Role="Request" EntitySet="Request" />
             <End Role="Request_Patient" EntitySet="Request_Patient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceContact_Patient" Association="Self.FK_ServiceContact_Patient">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="ServiceContact" EntitySet="ServiceContact" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
             <End Role="Role" EntitySet="Role" />
@@ -273,8 +253,7 @@
             <End Role="Visit" EntitySet="Visit" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HomeCareDb" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -301,24 +280,8 @@
           <Property Name="Handicap" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_Patient_User" FromRole="Patient" ToRole="User" />
           <NavigationProperty Name="Visits" Relationship="Self.FK_Visit_Patient" FromRole="Patient" ToRole="Visit" />
-        </EntityType>
-        <EntityType Name="Patient_PersonalContact">
-          <Key>
-            <PropertyRef Name="PersonalContact" />
-            <PropertyRef Name="PatientID" />
-          </Key>
-          <Property Name="PersonalContact" Type="Int32" Nullable="false" />
-          <Property Name="PatientID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="PersonalContact1" Relationship="Self.FK_Patient_PersonalContact_PersonalContact" FromRole="Patient_PersonalContact" ToRole="PersonalContact" />
-        </EntityType>
-        <EntityType Name="Patient_ServiceContact">
-          <Key>
-            <PropertyRef Name="ServiceContactId" />
-            <PropertyRef Name="PatientId" />
-          </Key>
-          <Property Name="ServiceContactId" Type="Int32" Nullable="false" />
-          <Property Name="PatientId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ServiceContact" Relationship="Self.FK_Patient_ServiceContact_ServiceContact" FromRole="Patient_ServiceContact" ToRole="ServiceContact" />
+          <NavigationProperty Name="PersonalContacts" Relationship="HomeCareDb.FK_PersonalContact_Patient" FromRole="Patient" ToRole="PersonalContact" />
+          <NavigationProperty Name="ServiceContacts" Relationship="HomeCareDb.FK_ServiceContact_Patient" FromRole="Patient" ToRole="ServiceContact" />
         </EntityType>
         <EntityType Name="PersonalContact">
           <Key>
@@ -328,11 +291,12 @@
           <Property Name="Firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Relation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="OtherInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Patient_PersonalContact" Relationship="Self.FK_Patient_PersonalContact_PersonalContact" FromRole="PersonalContact" ToRole="Patient_PersonalContact" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Relation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OtherInfo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PatientId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Patient" Relationship="HomeCareDb.FK_PersonalContact_Patient" FromRole="PersonalContact" ToRole="Patient" />
         </EntityType>
         <EntityType Name="Request">
           <Key>
@@ -364,13 +328,14 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Firstname" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Lastname" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="OtherInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="JobTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Patient_ServiceContact" Relationship="Self.FK_Patient_ServiceContact_ServiceContact" FromRole="ServiceContact" ToRole="Patient_ServiceContact" />
+          <Property Name="OtherInfo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JobTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PatientId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Patient" Relationship="HomeCareDb.FK_ServiceContact_Patient" FromRole="ServiceContact" ToRole="Patient" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -460,34 +425,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Patient_PersonalContact_PersonalContact">
-          <End Role="PersonalContact" Type="Self.PersonalContact" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Patient_PersonalContact" Type="Self.Patient_PersonalContact" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PersonalContact">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Patient_PersonalContact">
-              <PropertyRef Name="PersonalContact" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Patient_ServiceContact_ServiceContact">
-          <End Role="ServiceContact" Type="Self.ServiceContact" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Patient_ServiceContact" Type="Self.Patient_ServiceContact" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ServiceContact">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Patient_ServiceContact">
-              <PropertyRef Name="ServiceContactId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Request_Patient_Request">
           <End Role="Request" Type="Self.Request" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -519,8 +456,6 @@
         <EntityContainer Name="HomeCareEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Caretakers" EntityType="Self.Caretaker" />
           <EntitySet Name="Patients" EntityType="Self.Patient" />
-          <EntitySet Name="Patient_PersonalContact" EntityType="Self.Patient_PersonalContact" />
-          <EntitySet Name="Patient_ServiceContact" EntityType="Self.Patient_ServiceContact" />
           <EntitySet Name="PersonalContacts" EntityType="Self.PersonalContact" />
           <EntitySet Name="Requests" EntityType="Self.Request" />
           <EntitySet Name="Request_Patient" EntityType="Self.Request_Patient" />
@@ -545,14 +480,6 @@
             <End Role="Patient" EntitySet="Patients" />
             <End Role="Visit" EntitySet="Visits" />
           </AssociationSet>
-          <AssociationSet Name="FK_Patient_PersonalContact_PersonalContact" Association="Self.FK_Patient_PersonalContact_PersonalContact">
-            <End Role="PersonalContact" EntitySet="PersonalContacts" />
-            <End Role="Patient_PersonalContact" EntitySet="Patient_PersonalContact" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Patient_ServiceContact_ServiceContact" Association="Self.FK_Patient_ServiceContact_ServiceContact">
-            <End Role="ServiceContact" EntitySet="ServiceContacts" />
-            <End Role="Patient_ServiceContact" EntitySet="Patient_ServiceContact" />
-          </AssociationSet>
           <AssociationSet Name="FK_Request_Patient_Request" Association="Self.FK_Request_Patient_Request">
             <End Role="Request" EntitySet="Requests" />
             <End Role="Request_Patient" EntitySet="Request_Patient" />
@@ -561,7 +488,39 @@
             <End Role="Role" EntitySet="Roles" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
+          <AssociationSet Name="FK_PersonalContact_Patient" Association="HomeCareDb.FK_PersonalContact_Patient">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="PersonalContact" EntitySet="PersonalContacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceContact_Patient" Association="HomeCareDb.FK_ServiceContact_Patient">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="ServiceContact" EntitySet="ServiceContacts" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_PersonalContact_Patient">
+          <End Type="HomeCareDb.Patient" Role="Patient" Multiplicity="1" />
+          <End Type="HomeCareDb.PersonalContact" Role="PersonalContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonalContact">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceContact_Patient">
+          <End Type="HomeCareDb.Patient" Role="Patient" Multiplicity="1" />
+          <End Type="HomeCareDb.ServiceContact" Role="ServiceContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ServiceContact">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -590,25 +549,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Patient_PersonalContact">
-            <EntityTypeMapping TypeName="HomeCareDb.Patient_PersonalContact">
-              <MappingFragment StoreEntitySet="Patient_PersonalContact">
-                <ScalarProperty Name="PersonalContact" ColumnName="PersonalContact" />
-                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Patient_ServiceContact">
-            <EntityTypeMapping TypeName="HomeCareDb.Patient_ServiceContact">
-              <MappingFragment StoreEntitySet="Patient_ServiceContact">
-                <ScalarProperty Name="ServiceContactId" ColumnName="ServiceContactId" />
-                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="PersonalContacts">
             <EntityTypeMapping TypeName="HomeCareDb.PersonalContact">
               <MappingFragment StoreEntitySet="PersonalContact">
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Firstname" ColumnName="Firstname" />
                 <ScalarProperty Name="Lastname" ColumnName="Lastname" />
@@ -647,6 +591,7 @@
           <EntitySetMapping Name="ServiceContacts">
             <EntityTypeMapping TypeName="HomeCareDb.ServiceContact">
               <MappingFragment StoreEntitySet="ServiceContact">
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Firstname" ColumnName="Firstname" />
                 <ScalarProperty Name="Lastname" ColumnName="Lastname" />

@@ -61,6 +61,12 @@ body {
   margin: 0;
 }
 
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
 a:focus {
   outline: thin dotted;
 }

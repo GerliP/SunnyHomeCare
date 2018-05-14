@@ -6,77 +6,156 @@
 
 <h2>Details</h2>
 
-<div>
+<div class="flex-container">
     <h4>User</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Firstname)
-        </dt>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Firstname)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Firstname)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Firstname)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Lastname)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Lastname)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Lastname)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Lastname)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Password)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Password)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ContactNumber)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.ContactNumber)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ContactNumber)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.ContactNumber)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Gender)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Gender)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Role.Name)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Role.Name)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Role.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Role.Name)
+            </dd>
 
-    </dl>
+        </dl>
+    </div>
+    <div class="more_info"></div>
+
+
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+<script>
+    var role_name = '@ViewBag.Role_Name'
+    if (role_name == "Patient") {
+        $('.more_info').append(`<div>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                @Html.DisplayNameFor(model => model.Firstname)
+                </dt>
+
+                <dd>
+                @Html.DisplayFor(model => model.Firstname)
+                </dd>
+
+                <dt>
+                @Html.DisplayNameFor(model => model.Lastname)
+                </dt>
+
+                <dd>
+                @Html.DisplayFor(model => model.Lastname)
+                </dd>
+
+                <dt>
+                @Html.DisplayNameFor(model => model.Email)
+                </dt>
+
+                <dd>
+                @Html.DisplayFor(model => model.Email)
+                </dd>
+
+                <dt>
+                @Html.DisplayNameFor(model => model.Password)
+                </dt>
+
+                <dd>
+                @Html.DisplayFor(model => model.Password)
+                </dd>
+
+                <dt>
+                @Html.DisplayNameFor(model => model.Address)
+                </dt>
+
+                <dd>
+                @Html.DisplayFor(model => model.Address)
+                </dd>
+
+                <dt>
+                @Html.DisplayNameFor(model => model.ContactNumber)
+                </dt>
+
+                <dd>
+                @Html.DisplayFor(model => model.ContactNumber)
+                </dd>
+
+                <dt>
+                @Html.DisplayNameFor(model => model.Gender)
+                </dt>
+
+                <dd>
+                @Html.DisplayFor(model => model.Gender)
+                </dd>
+
+                <dt>
+                @Html.DisplayNameFor(model => model.Role.Name)
+                </dt>
+
+                <dd>
+                @Html.DisplayFor(model => model.Role.Name)
+                </dd>
+
+            </dl>
+        </div>`)
+    }
+</script>

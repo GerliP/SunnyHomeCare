@@ -127,18 +127,50 @@ namespace SunnyHomeCare.Controllers
           
         }
 
+        public ActionResult AdminServiceContactCreate(int patientId)
+        {
+            ViewBag.PatientId = patientId;
+            return View();
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AdminServiceContactCreate([Bind(Include = "Firstname,Lastname,Email,PhoneNumber,OtherInfo,JobTitle")]ServiceContact serviceContact, int patientId)
+        {
+            ViewBag.PatientId = patientId;
+
+            if (ModelState.IsValid)
+            {
+                db.ServiceContacts.Add(serviceContact);
+                db.SaveChanges();
+
+                Patient patient = db.Patients.Find(patientId);
+                patient.ServiceContacts.Add(serviceContact);
+                db.SaveChanges();
+                return View();
+            }
+            return View();
+
+        }
+
+
+
         public ActionResult AdminPersonalContactCreate(int id)
         {
             ViewBag.PatientId = id; 
            
             return View();
+
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AdminPersonalContactCreate([Bind(Include = "Id,Firstname,Lastname,PhoneNumber,Address,Email,Relation,OtherInfo")]PersonalContact personalContact, int patientId)
-           
+
         {
+            ViewBag.PatientId = patientId;
+
             if (ModelState.IsValid)
             {
                 db.PersonalContacts.Add(personalContact);
@@ -148,7 +180,6 @@ namespace SunnyHomeCare.Controllers
                 patient.PersonalContacts.Add(personalContact);
                 db.SaveChanges();
 
-                ViewBag.PatientId = patientId;
                 return View();
             }
             return View();

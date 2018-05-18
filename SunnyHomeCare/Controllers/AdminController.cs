@@ -32,7 +32,11 @@ namespace SunnyHomeCare.Controllers
         // GET: Admin/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (Session["Id"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            else if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -41,6 +45,7 @@ namespace SunnyHomeCare.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Role_Name = user.Role.Name;
             return View(user);
         }
 
@@ -120,6 +125,35 @@ namespace SunnyHomeCare.Controllers
           
         }
 
+        public ActionResult AdminServiceContactCreate(int patientId)
+        {
+            ViewBag.PatientId = patientId;
+            return View();
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AdminServiceContactCreate([Bind(Include = "Firstname,Lastname,Email,PhoneNumber,OtherInfo,JobTitle")]ServiceContact serviceContact, int patientId)
+        {
+            ViewBag.PatientId = patientId;
+
+            if (ModelState.IsValid)
+            {
+                db.ServiceContacts.Add(serviceContact);
+                db.SaveChanges();
+
+                Patient patient = db.Patients.Find(patientId);
+                patient.ServiceContacts.Add(serviceContact);
+                db.SaveChanges();
+                return View();
+            }
+            return View();
+
+        }
+
+
+
         public ActionResult AdminPersonalContactCreate(int id)
         {
             ViewBag.PatientId = id; 
@@ -131,8 +165,10 @@ namespace SunnyHomeCare.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AdminPersonalContactCreate([Bind(Include = "Id,Firstname,Lastname,PhoneNumber,Address,Email,Relation,OtherInfo")]PersonalContact personalContact, int patientId)
-           
+
         {
+            ViewBag.PatientId = patientId;
+
             if (ModelState.IsValid)
             {
                 db.PersonalContacts.Add(personalContact);
@@ -142,7 +178,6 @@ namespace SunnyHomeCare.Controllers
                 patient.PersonalContacts.Add(personalContact);
                 db.SaveChanges();
 
-                ViewBag.PatientId = patientId;
                 return View();
             }
             return View();

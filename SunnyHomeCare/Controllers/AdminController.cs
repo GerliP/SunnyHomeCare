@@ -46,6 +46,8 @@ namespace SunnyHomeCare.Controllers
                 return HttpNotFound();
             }
             ViewBag.Role_Name = user.Role.Name;
+
+            //Foo model = db.Foos.Where(x => x.ID == id).Include(x => x.Bar).FirstOrDefault();
             return View(user);
         }
 

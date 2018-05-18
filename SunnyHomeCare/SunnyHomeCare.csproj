@@ -273,6 +273,9 @@
     <Content Include="Views\Admin\AdminPatientCreate.cshtml" />
     <Content Include="Views\Admin\AdminPersonalContactCreate.cshtml" />
     <Content Include="Views\Admin\AdminCaretakerCreate.cshtml" />
+    <Content Include="Views\Shared\PersonalContactPV.cshtml" />
+    <Content Include="Views\Shared\PatientPV.cshtml" />
+    <Content Include="Views\Shared\ServiceContactPV.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

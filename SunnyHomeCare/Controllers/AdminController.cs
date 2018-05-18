@@ -125,6 +125,7 @@ namespace SunnyHomeCare.Controllers
             ViewBag.PatientId = id; 
            
             return View();
+
         }
 
         [HttpPost]

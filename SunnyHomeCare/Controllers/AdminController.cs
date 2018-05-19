@@ -42,6 +42,10 @@ namespace SunnyHomeCare.Controllers
             }
         }
 
+        public ActionResult CreateVisit (int patientId)
+        {
+            return View();
+        }
         // GET: Admin/Details/5
         public ActionResult Details(int? id)
         {
@@ -140,7 +144,6 @@ namespace SunnyHomeCare.Controllers
             {
                 ViewBag.CaretakerId = caretaker.Id;
                 ViewBag.Message = "Failure!!";
-
                 return View();
             }
           
@@ -178,9 +181,7 @@ namespace SunnyHomeCare.Controllers
         public ActionResult AdminPersonalContactCreate(int id)
         {
             ViewBag.PatientId = id; 
-           
             return View();
-
         }
 
         [HttpPost]
@@ -233,7 +234,6 @@ namespace SunnyHomeCare.Controllers
 
                 return View();
             }
-
         }
 
         // GET: Admin/Edit/5

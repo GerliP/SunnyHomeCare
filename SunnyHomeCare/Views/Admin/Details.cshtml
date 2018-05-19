@@ -77,9 +77,9 @@
 
         </dl>
     </div>
-     <div>
-               @Html.Partial("PatientPV", Model.Patients.FirstOrDefault(), new ViewDataDictionary<SunnyHomeCare.Models.Patient>(Model.Patients.FirstOrDefault()));
-            
+    <div>
+        @Html.Partial("PatientPV", Model.Patients.FirstOrDefault(), new ViewDataDictionary<SunnyHomeCare.Models.Patient>(Model.Patients.FirstOrDefault()));
+        @Html.Partial("PersonalContactPV", Model.Patients.FirstOrDefault(), new ViewDataDictionary<SunnyHomeCare.Models.Patient>(Model.Patients.FirstOrDefault()));
     </div>
 </div>
 <p>

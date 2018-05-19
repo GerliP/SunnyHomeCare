@@ -49,8 +49,14 @@ namespace SunnyHomeCare.Controllers
 
             //Foo model = db.Foos.Where(x => x.ID == id).Include(x => x.Bar).FirstOrDefault();
             return View(user);
-        }
 
+        }
+        [ChildActionOnly]
+        public PartialViewResult Contact()
+        {
+            return PartialView("PersonalContactPV"); // or return PartialView("_QuickContact", new ContactForm());
+        }
+        
         // GET: Admin/Create
         public ActionResult Create()
         {

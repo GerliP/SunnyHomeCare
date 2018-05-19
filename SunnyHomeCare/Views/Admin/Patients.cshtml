@@ -1,0 +1,67 @@
+﻿@model IEnumerable<SunnyHomeCare.Models.Patient>
+
+@{
+    ViewBag.Title = "Patients";
+    Layout = "~/Views/Admin/AdminLayout.cshtml";
+}
+
+<h2>Patients</h2>
+
+<p>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Lastname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BloodType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dislikes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comments)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Illness)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Handicap)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Firstname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Lastname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BloodType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dislikes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comments)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Illness)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Handicap)
+        </td>
+        <td>
+            @Html.ActionLink("Create Visit", "CreateVisit", new { id = item.Id }) |
+        </td>
+    </tr>
+}
+
+</table>

@@ -37,7 +37,8 @@ namespace SunnyHomeCare.Controllers
             }
             else
             {
-                var visits = db.Visits.
+                var visits = db.Patients.ToList();
+                return View("Patients", visits);
             }
         }
 
@@ -127,7 +128,7 @@ namespace SunnyHomeCare.Controllers
                 int id = caretaker.Id;
                 ViewBag.Message = "Success";
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Users");
             }
             else
             {

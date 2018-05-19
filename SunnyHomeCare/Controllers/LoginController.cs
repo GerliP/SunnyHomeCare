@@ -38,7 +38,7 @@ namespace SunnyHomeCare.Controllers
             {
                 if (role == 1) // Admin
                 {
-                    return RedirectToAction("Index", "Admin");
+                    return RedirectToAction("Users", "Admin");
                 }
                 else if (role == 2) // Patinet
                 {

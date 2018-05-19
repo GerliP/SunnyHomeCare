@@ -15,7 +15,7 @@ namespace SunnyHomeCare.Controllers
         private HomeCare db = new HomeCare();
 
         // GET: Admin
-        public ActionResult Index()
+        public ActionResult Users()
         {
 
             if (Session["Id"] == null)
@@ -27,6 +27,18 @@ namespace SunnyHomeCare.Controllers
                 var users = db.Users.Include(u => u.Role);
                 return View(users.ToList());
             };
+        }
+
+        public ActionResult Visits()
+        {
+            if(Session["Id"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            else
+            {
+                var visits = db.Visits.
+            }
         }
 
         // GET: Admin/Details/5

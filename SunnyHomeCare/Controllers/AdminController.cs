@@ -29,7 +29,7 @@ namespace SunnyHomeCare.Controllers
             };
         }
 
-        public ActionResult Visits()
+      /*  public ActionResult Visits()
         {
             if(Session["Id"] == null)
             {
@@ -37,9 +37,9 @@ namespace SunnyHomeCare.Controllers
             }
             else
             {
-                var visits = db.Visits.
+                //var visits = db.Visits.
             }
-        }
+        }*/
 
         // GET: Admin/Details/5
         public ActionResult Details(int? id)

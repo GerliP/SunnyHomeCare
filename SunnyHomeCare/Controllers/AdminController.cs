@@ -29,7 +29,7 @@ namespace SunnyHomeCare.Controllers
             };
         }
 
-      /*  public ActionResult Visits()
+        public ActionResult Visits()
         {
             if(Session["Id"] == null)
             {
@@ -37,9 +37,10 @@ namespace SunnyHomeCare.Controllers
             }
             else
             {
-                //var visits = db.Visits.
+                var visits = db.Patients.ToList();
+                return View("Patients", visits);
             }
-        }*/
+        }
 
         // GET: Admin/Details/5
         public ActionResult Details(int? id)
@@ -133,7 +134,7 @@ namespace SunnyHomeCare.Controllers
                 int id = caretaker.Id;
                 ViewBag.Message = "Success";
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Users");
             }
             else
             {

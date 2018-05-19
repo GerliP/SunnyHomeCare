@@ -11,8 +11,7 @@ namespace SunnyHomeCare.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-
+    
     public partial class ServiceContact
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,16 +21,11 @@ namespace SunnyHomeCare.Models
         }
     
         public int Id { get; set; }
-        [DisplayName("First Name")]
         public string Firstname { get; set; }
-        [DisplayName("Last Name")]
         public string Lastname { get; set; }
         public string Email { get; set; }
-        [DisplayName("Phone number")]
         public string PhoneNumber { get; set; }
-        [DisplayName("Other info")]
         public string OtherInfo { get; set; }
-        [DisplayName("Occupation")]
         public string JobTitle { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -42,8 +42,11 @@ namespace SunnyHomeCare.Controllers
             }
         }
 
-        public ActionResult CreateVisit (int patientId)
+        public ActionResult CreateVisit (int id)
         {
+            ViewBag.PatientId = id;
+            ViewBag.Caretaker_id = new SelectList(db.Users.Where(user => user.Role_id == 3), "Role_id", "Firstname");
+
             return View();
         }
         // GET: Admin/Details/5

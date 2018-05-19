@@ -17,13 +17,13 @@ namespace SunnyHomeCare.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Request()
         {
-            this.Patients = new HashSet<Patient>();
+            this.Request_Patient = new HashSet<Request_Patient>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Patient> Patients { get; set; }
+        public virtual ICollection<Request_Patient> Request_Patient { get; set; }
     }
 }

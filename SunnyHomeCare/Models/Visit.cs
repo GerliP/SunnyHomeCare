@@ -15,9 +15,9 @@ namespace SunnyHomeCare.Models
     public partial class Visit
     {
         public int Id { get; set; }
-        public Nullable<int> Patient_id { get; set; }
+        public int Patient_id { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
-        public Nullable<int> Caretaker_id { get; set; }
+        public int Caretaker_id { get; set; }
     
         public virtual Caretaker Caretaker { get; set; }
         public virtual Patient Patient { get; set; }

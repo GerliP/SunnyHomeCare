@@ -11,7 +11,9 @@ namespace SunnyHomeCare.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,11 +24,15 @@ namespace SunnyHomeCare.Models
         }
     
         public int Id { get; set; }
+        [DisplayName("First Name")]
         public string Firstname { get; set; }
+        [DisplayName("Last Name")]
         public string Lastname { get; set; }
         public string Email { get; set; }
+        [DataType("Password")]
         public string Password { get; set; }
         public string Address { get; set; }
+        [DisplayName("Contact number")]
         public int ContactNumber { get; set; }
         public int Role_id { get; set; }
         public string Gender { get; set; }

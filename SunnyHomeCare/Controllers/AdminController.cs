@@ -265,7 +265,7 @@ namespace SunnyHomeCare.Controllers
             {
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Users");
             }
             ViewBag.Role_id = new SelectList(db.Roles, "Id", "Name", user.Role_id);
             return View(user);

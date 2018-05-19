@@ -123,8 +123,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Patient_PersonalContact_Patient1">
-          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+        <Association Name="FK_Patient_PersonalContact_Patient">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Patient_PersonalContact" Type="Self.Patient_PersonalContact" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Patient">
@@ -135,8 +137,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Patient_PersonalContact_PersonalContact1">
-          <End Role="PersonalContact" Type="Self.PersonalContact" Multiplicity="1" />
+        <Association Name="FK_Patient_PersonalContact_PersonalContact">
+          <End Role="PersonalContact" Type="Self.PersonalContact" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Patient_PersonalContact" Type="Self.Patient_PersonalContact" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PersonalContact">
@@ -148,7 +152,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Patient_ServiceContact_Patient">
-          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Patient_ServiceContact" Type="Self.Patient_ServiceContact" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Patient">
@@ -160,7 +166,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Patient_ServiceContact_ServiceContact">
-          <End Role="ServiceContact" Type="Self.ServiceContact" Multiplicity="1" />
+          <End Role="ServiceContact" Type="Self.ServiceContact" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Patient_ServiceContact" Type="Self.Patient_ServiceContact" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ServiceContact">
@@ -172,7 +180,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Patient_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -183,20 +193,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Request_Patient_Patient">
-          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
-          <End Role="Request_Patient" Type="Self.Request_Patient" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Patient">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Request_Patient">
-              <PropertyRef Name="Patient_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Request_Patient_Request">
-          <End Role="Request" Type="Self.Request" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Request_Patient" Type="Self.Request_Patient" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Request">
@@ -231,18 +231,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Visit_Patient_id">
-          <End Role="Patient" Type="Self.Patient" Multiplicity="0..1" />
-          <End Role="Visit" Type="Self.Visit" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Patient">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Visit">
-              <PropertyRef Name="Patient_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="HomeCareModelStoreContainer">
           <EntitySet Name="Caretaker" EntityType="Self.Caretaker" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
@@ -259,11 +247,11 @@
             <End Role="User" EntitySet="User" />
             <End Role="Caretaker" EntitySet="Caretaker" />
           </AssociationSet>
-          <AssociationSet Name="FK_Patient_PersonalContact_Patient1" Association="Self.FK_Patient_PersonalContact_Patient1">
+          <AssociationSet Name="FK_Patient_PersonalContact_Patient" Association="Self.FK_Patient_PersonalContact_Patient">
             <End Role="Patient" EntitySet="Patient" />
             <End Role="Patient_PersonalContact" EntitySet="Patient_PersonalContact" />
           </AssociationSet>
-          <AssociationSet Name="FK_Patient_PersonalContact_PersonalContact1" Association="Self.FK_Patient_PersonalContact_PersonalContact1">
+          <AssociationSet Name="FK_Patient_PersonalContact_PersonalContact" Association="Self.FK_Patient_PersonalContact_PersonalContact">
             <End Role="PersonalContact" EntitySet="PersonalContact" />
             <End Role="Patient_PersonalContact" EntitySet="Patient_PersonalContact" />
           </AssociationSet>
@@ -279,10 +267,6 @@
             <End Role="User" EntitySet="User" />
             <End Role="Patient" EntitySet="Patient" />
           </AssociationSet>
-          <AssociationSet Name="FK_Request_Patient_Patient" Association="Self.FK_Request_Patient_Patient">
-            <End Role="Patient" EntitySet="Patient" />
-            <End Role="Request_Patient" EntitySet="Request_Patient" />
-          </AssociationSet>
           <AssociationSet Name="FK_Request_Patient_Request" Association="Self.FK_Request_Patient_Request">
             <End Role="Request" EntitySet="Request" />
             <End Role="Request_Patient" EntitySet="Request_Patient" />
@@ -293,10 +277,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_Visit_Caretaker" Association="Self.FK_Visit_Caretaker">
             <End Role="Caretaker" EntitySet="Caretaker" />
-            <End Role="Visit" EntitySet="Visit" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Visit_Patient_id" Association="Self.FK_Visit_Patient_id">
-            <End Role="Patient" EntitySet="Patient" />
             <End Role="Visit" EntitySet="Visit" />
           </AssociationSet>
         </EntityContainer>

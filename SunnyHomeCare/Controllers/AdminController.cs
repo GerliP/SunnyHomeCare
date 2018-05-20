@@ -42,9 +42,9 @@ namespace SunnyHomeCare.Controllers
             }
         }
         [HttpGet]
-        public ActionResult CareTakerInfo(int careTakerId)
+        public ActionResult CareTakerInfo(int caretakerId)
         {
-            Caretaker caretaker = db.Caretakers.Find(careTakerId);
+            Caretaker caretaker = db.Caretakers.Find(caretakerId);
             User user = caretaker.User;
             return PartialView("CaretakerPV", user);
         }
@@ -158,14 +158,14 @@ namespace SunnyHomeCare.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AdminCaretakerCreate([Bind(Include = "Id,User_id,Date_of_Employment")]Caretaker caretaker)
         {
-            //CARETAKER ID IS SAME AS USER ID WHEN ITS NOT SUPPOSED TO BE . FIX PLX
+         
             if (ModelState.IsValid)
             {
                 db.Caretakers.Add(caretaker);
                 db.SaveChanges();
-                int id = caretaker.Id;
                 ViewBag.Message = "Success";
 
                 return RedirectToAction("Users");

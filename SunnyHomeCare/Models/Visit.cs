@@ -21,7 +21,6 @@ namespace SunnyHomeCare.Models
         [DisplayFormat(DataFormatString = "{yyyy/MM/dd}")]
         public Nullable<System.DateTime> Date { get; set; }
         public int Caretaker_id { get; set; }
-    
         public virtual Caretaker Caretaker { get; set; }
         public virtual Patient Patient { get; set; }
     }

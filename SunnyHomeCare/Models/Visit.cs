@@ -11,11 +11,14 @@ namespace SunnyHomeCare.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Visit
     {
         public int Id { get; set; }
         public int Patient_id { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{yyyy/MM/dd}")]
         public Nullable<System.DateTime> Date { get; set; }
         public int Caretaker_id { get; set; }
     

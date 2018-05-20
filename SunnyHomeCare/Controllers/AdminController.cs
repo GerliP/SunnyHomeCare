@@ -41,20 +41,39 @@ namespace SunnyHomeCare.Controllers
                 return View("Patients", visits);
             }
         }
+        [HttpGet]
+        public ActionResult CareTakerInfo(int careTakerId)
+        {
+            Caretaker caretaker = db.Caretakers.Find(careTakerId);
+            User user = caretaker.User;
+            return PartialView("CaretakerPV", user);
+        }
 
         public ActionResult CreateVisit (int id)
         {
             ViewBag.PatientId = id;
-            ViewBag.Caretaker_id = new SelectList(db.Users.Where(user => user.Role_id == 3), "Role_id", "Firstname");
+            ViewBag.Caretaker_id = new SelectList(db.Users.Where(user => user.Role_id == 3), "Id", "Firstname");
 
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateVisit([Bind(Include = "Patient_id,Date,Caretaker_id")]ServiceContact serviceContact)
+        public ActionResult CreateVisit([Bind(Include = "Patient_id,Date,Caretaker_id")]Visit visit)
         {
-            return View(); 
+            if (ModelState.IsValid)
+            {
+                Caretaker caretaker = db.Caretakers.Where(c => c.User_id == visit.Caretaker_id).FirstOrDefault();
+                visit.Caretaker_id = caretaker.Id;
+                db.Visits.Add(visit);
+                db.SaveChanges();
+                return View("Visit");
+            }
+            else
+            {
+                return View("Error"); 
+            }
+               
         }
         // GET: Admin/Details/5
         public ActionResult Details(int? id)
@@ -141,6 +160,7 @@ namespace SunnyHomeCare.Controllers
         [HttpPost]
         public ActionResult AdminCaretakerCreate([Bind(Include = "Id,User_id,Date_of_Employment")]Caretaker caretaker)
         {
+            //CARETAKER ID IS SAME AS USER ID WHEN ITS NOT SUPPOSED TO BE . FIX PLX
             if (ModelState.IsValid)
             {
                 db.Caretakers.Add(caretaker);

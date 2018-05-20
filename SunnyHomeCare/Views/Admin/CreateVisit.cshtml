@@ -5,8 +5,8 @@
     Layout = "~/Views/Admin/AdminLayout.cshtml";
     int PatientId = ViewBag.PatientId;
 }
-
-<h2>CreateVisit</h2>
+ 
+<h2>Create Visit</h2>
 
 
 @using (Html.BeginForm()) 
@@ -28,7 +28,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", @id = "date"} })
                 @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -36,7 +36,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Caretaker_id, "Caretaker_id", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Caretaker_id", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("Caretaker_id", null, htmlAttributes: new { @class = "form-control", @id = "careTakerId" })
                 @Html.ValidationMessageFor(model => model.Caretaker_id, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -47,6 +47,10 @@
             </div>
         </div>
     </div>
+
+    <div id="careTakerInfo">
+
+    </div>
 }
 
 <div>
@@ -56,3 +60,28 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script>
+
+    $("#careTakerId").change(function () {
+        fetchCareTakerInfo();
+    });
+
+    window.onload = function () {
+        fetchCareTakerInfo();
+
+        
+    }
+
+    function fetchCareTakerInfo() {
+        var val = $("#careTakerId").val();
+        console.log(val);
+        $.ajax({
+            url: "/Admin/CareTakerInfo",
+            type: "GET",
+            data: { careTakerId: val }
+        }).done(function (partialViewResult) {
+            $("#careTakerInfo").html(partialViewResult);
+        });
+    }
+
+</script>

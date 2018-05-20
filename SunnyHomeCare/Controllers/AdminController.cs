@@ -49,6 +49,13 @@ namespace SunnyHomeCare.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateVisit([Bind(Include = "Patient_id,Date,Caretaker_id")]ServiceContact serviceContact)
+        {
+            return View(); 
+        }
         // GET: Admin/Details/5
         public ActionResult Details(int? id)
         {

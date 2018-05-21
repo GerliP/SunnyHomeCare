@@ -81,7 +81,16 @@ namespace SunnyHomeCare.Controllers
         public ActionResult CreateVisit (int id)
         {
             ViewBag.PatientId = id;
-            ViewBag.Caretaker_id = new SelectList(db.Users.Where(user => user.Role_id == 3), "Id", "Firstname");
+            //ViewBag.Caretaker_id = new SelectList(db.Users.Where(user => user.Role_id == 3), "Id", "Firstname");
+            ViewBag.Caretaker_id = new SelectList(db.Users
+                .Join(db.Caretakers, 
+                    u => u.Id, 
+                    c => c.User_id, 
+                    (u, c) => new
+                    {
+                        u.Firstname,
+                        c.Id
+                    }), "Id", "Firstname");
 
             return View();
         }
@@ -92,11 +101,9 @@ namespace SunnyHomeCare.Controllers
         {
             if (ModelState.IsValid)
             {
-                Caretaker caretaker = db.Caretakers.Where(c => c.User_id == visit.Caretaker_id).FirstOrDefault();
-                visit.Caretaker_id = caretaker.Id;
                 db.Visits.Add(visit);
                 db.SaveChanges();
-                return View("Visit");
+                return RedirectToAction("Visits");
             }
             else
             {

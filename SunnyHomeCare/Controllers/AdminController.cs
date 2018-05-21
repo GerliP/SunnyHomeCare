@@ -129,25 +129,43 @@ namespace SunnyHomeCare.Controllers
             }
             ViewBag.Role_Name = user.Role.Name;
 
-            //Foo model = db.Foos.Where(x => x.ID == id).Include(x => x.Bar).FirstOrDefault();
             return View(user);
 
         }
+        // Displaying @Html.Action("ActionName","ControllerName", ObjectValue)
+        // This code snippets can be reused and require small changes, can probably be made into a interface
         [ChildActionOnly]
-        public PartialViewResult Contact(Patient patient)
+        public PartialViewResult PatientDetails(Patient patient)
+        {
+            return PartialView("PatientPV", patient);
+        }
+        // Displaying @Html.Action("ActionName","ControllerName", ObjectValue)
+        // Returns PartialViews for each instance of Personal Contact in the patient that is selected
+        // This code snippets can be reused and require small changes, can probably be made into a interface
+        [ChildActionOnly]
+        public PartialViewResult PersonalContact(Patient patient)
         {
             List<PersonalContact> pc = patient.PersonalContacts.ToList();
-            if (pc.Any())
-            {
-                return null;
-            }
             foreach (PersonalContact contact in pc)
             {
                 return PartialView("PersonalContactPV", contact);
             }
             return PartialView("PersonalContactPV", pc.FirstOrDefault());
         }
-        
+        // Displaying @Html.Action("ActionName","ControllerName", ObjectValue)
+        // Returns PartialViews for each instance of Service Contact in the patient that is selected
+        // This code snippets can be reused and require small changes, can probably be made into a interface
+        [ChildActionOnly]
+        public PartialViewResult ServiceContact(Patient patient)
+        {
+            List<ServiceContact> sc = patient.ServiceContacts.ToList();
+            foreach (ServiceContact contact in sc)
+            {
+                return PartialView("ServiceContactPV", contact);
+            }
+            return PartialView("ServiceContactPV", sc.FirstOrDefault());
+        }
+
         // GET: Admin/Create
         public ActionResult Create()
         {

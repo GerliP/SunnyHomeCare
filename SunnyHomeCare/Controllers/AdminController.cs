@@ -146,11 +146,8 @@ namespace SunnyHomeCare.Controllers
         public PartialViewResult PersonalContact(Patient patient)
         {
             List<PersonalContact> pc = patient.PersonalContacts.ToList();
-            foreach (PersonalContact contact in pc)
-            {
-                return PartialView("PersonalContactPV", contact);
-            }
-            return PartialView("PersonalContactPV", pc.FirstOrDefault());
+            
+            return PartialView("PersonalContactListPV", pc);
         }
         // Displaying @Html.Action("ActionName","ControllerName", ObjectValue)
         // Returns PartialViews for each instance of Service Contact in the patient that is selected
@@ -159,11 +156,8 @@ namespace SunnyHomeCare.Controllers
         public PartialViewResult ServiceContact(Patient patient)
         {
             List<ServiceContact> sc = patient.ServiceContacts.ToList();
-            foreach (ServiceContact contact in sc)
-            {
-                return PartialView("ServiceContactPV", contact);
-            }
-            return PartialView("ServiceContactPV", sc.FirstOrDefault());
+           
+            return PartialView("ServiceContactListPV", sc);
         }
 
         // GET: Admin/Create

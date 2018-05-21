@@ -77,14 +77,15 @@
 
         </dl>
     </div>
-    <div>
+    <div class="flex-container">
         @{
-            if (ViewBag.Role_Name == "Patient")
-            {
-            @Html.Partial("PatientPV", Model.Patients.FirstOrDefault(), new ViewDataDictionary<SunnyHomeCare.Models.Patient>(Model.Patients.FirstOrDefault()));
-            @Html.Action("Contact", "Admin", Model.Patients.FirstOrDefault())
-
-            }
+        // Validates if a Patient is selected and shows all neccesary info
+        if (ViewBag.Role_Name == "Patient")
+        {
+        @Html.Action("PatientDetails", "Admin", Model.Patients.FirstOrDefault());
+        @Html.Action("PersonalContact", "Admin", Model.Patients.FirstOrDefault())
+        @Html.Action("ServiceContact", "Admin", Model.Patients.FirstOrDefault())
+        }
         }
     </div>
 </div>

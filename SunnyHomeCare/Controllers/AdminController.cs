@@ -41,6 +41,35 @@ namespace SunnyHomeCare.Controllers
                 return View("Patients", visits);
             }
         }
+
+        public ActionResult GetCaretakers()
+        {
+            if (Session["Id"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            else
+            {
+                var caretakers = db.Users.Where(user => user.Role_id == 3).Include(u => u.Role);
+                
+                return View("Users", caretakers.ToList());
+            };
+        }
+
+        public ActionResult GetPatients()
+        {
+            if (Session["Id"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            else
+            {
+                var patients = db.Users.Where(user => user.Role_id == 2).Include(u => u.Role);
+
+                return View("Users", patients.ToList());
+            };
+        }
+
         [HttpGet]
         public ActionResult CareTakerInfo(int caretakerId)
         {

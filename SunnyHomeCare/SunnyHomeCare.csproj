@@ -184,6 +184,9 @@
     <Compile Include="Models\Request.cs">
       <DependentUpon>HomeCare.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Request_Patient.cs">
+      <DependentUpon>HomeCare.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Role.cs">
       <DependentUpon>HomeCare.tt</DependentUpon>
     </Compile>
@@ -220,6 +223,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="ConnectionStrings.config" />
     <EntityDeploy Include="Models\HomeCare.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>HomeCare.Designer.cs</LastGenOutput>
@@ -227,7 +231,6 @@
     <Content Include="Models\HomeCare.edmx.diagram">
       <DependentUpon>HomeCare.edmx</DependentUpon>
     </Content>
-    <Content Include="ConnectionStrings.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -278,6 +281,9 @@
     <Content Include="Views\Shared\ServiceContactPV.cshtml" />
     <Content Include="Views\Admin\AdminServiceContactCreate.cshtml" />
     <Content Include="Views\Admin\Patients.cshtml" />
+    <Content Include="Views\Admin\CreateVisit.cshtml" />
+    <Content Include="Views\Shared\CaretakerPV.cshtml" />
+    <Content Include="Views\Shared\MapMini.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,7 +1,7 @@
 ﻿@model SunnyHomeCare.Models.PersonalContact
 
 @{
-    ViewBag.Title = "AdminPersonalContactCreate";
+    ViewBag.Title = "Add personal contact to patient.";
     Layout = "~/Views/Admin/AdminLayout.cshtml";
     int PatientId = ViewBag.PatientId;
 }
@@ -16,7 +16,7 @@
     @Html.AntiForgeryToken()
     
 <div class="form-horizontal">
-    <h4>PersonalContact</h4>
+    <h4>Personal Contact details</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 

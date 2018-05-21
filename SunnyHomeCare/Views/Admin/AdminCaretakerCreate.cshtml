@@ -3,15 +3,15 @@
 @{
     ViewBag.Title = "AdminCaretakerCreate";
     Layout = "~/Views/Admin/AdminLayout.cshtml";
-    int UserId = ViewBag.UserId;
+    int User_id = ViewBag.UserId;
 }
 
 <h2>AdminCaretakerCreate</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Caretaker</h4>
         <hr />
@@ -20,7 +20,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.User_id, "User_id", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.User_id, new { htmlAttributes = new { @class = "form-control", @Value = @UserId } } )
+                @Html.EditorFor(model => model.User_id, new { htmlAttributes = new { @class = "form-control", @Value = @User_id } })
                 @Html.ValidationMessageFor(model => model.User_id, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -44,3 +44,4 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+

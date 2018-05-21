@@ -42,6 +42,68 @@ namespace SunnyHomeCare.Controllers
             }
         }
 
+        public ActionResult GetCaretakers()
+        {
+            if (Session["Id"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            else
+            {
+                var caretakers = db.Users.Where(user => user.Role_id == 3).Include(u => u.Role);
+                
+                return View("Users", caretakers.ToList());
+            };
+        }
+
+        public ActionResult GetPatients()
+        {
+            if (Session["Id"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            else
+            {
+                var patients = db.Users.Where(user => user.Role_id == 2).Include(u => u.Role);
+
+                return View("Users", patients.ToList());
+            };
+        }
+
+        [HttpGet]
+        public ActionResult CareTakerInfo(int caretakerId)
+        {
+            Caretaker caretaker = db.Caretakers.Find(caretakerId);
+            User user = caretaker.User;
+            return PartialView("CaretakerPV", user);
+        }
+
+        public ActionResult CreateVisit (int id)
+        {
+            ViewBag.PatientId = id;
+            ViewBag.Caretaker_id = new SelectList(db.Users.Where(user => user.Role_id == 3), "Id", "Firstname");
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateVisit([Bind(Include = "Patient_id,Date,Caretaker_id")]Visit visit)
+        {
+            if (ModelState.IsValid)
+            {
+                Caretaker caretaker = db.Caretakers.Where(c => c.User_id == visit.Caretaker_id).FirstOrDefault();
+                visit.Caretaker_id = caretaker.Id;
+                db.Visits.Add(visit);
+                db.SaveChanges();
+                return View("Visit");
+            }
+            else
+            {
+                return View("Error"); 
+            }
+               
+        }
         // GET: Admin/Details/5
         public ActionResult Details(int? id)
         {
@@ -135,13 +197,14 @@ namespace SunnyHomeCare.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AdminCaretakerCreate([Bind(Include = "Id,User_id,Date_of_Employment")]Caretaker caretaker)
         {
+         
             if (ModelState.IsValid)
             {
                 db.Caretakers.Add(caretaker);
                 db.SaveChanges();
-                int id = caretaker.Id;
                 ViewBag.Message = "Success";
 
                 return RedirectToAction("Users");
@@ -150,7 +213,6 @@ namespace SunnyHomeCare.Controllers
             {
                 ViewBag.CaretakerId = caretaker.Id;
                 ViewBag.Message = "Failure!!";
-
                 return View();
             }
           
@@ -188,9 +250,7 @@ namespace SunnyHomeCare.Controllers
         public ActionResult AdminPersonalContactCreate(int id)
         {
             ViewBag.PatientId = id; 
-           
             return View();
-
         }
 
         [HttpPost]
@@ -243,7 +303,6 @@ namespace SunnyHomeCare.Controllers
 
                 return View();
             }
-
         }
 
         // GET: Admin/Edit/5

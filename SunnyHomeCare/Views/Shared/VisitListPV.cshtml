@@ -6,13 +6,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Date)
+            Date
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Caretaker.Id)
+            Caretaker Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Patient.BloodType)
+            Patient Name
         </th>
         <th></th>
     </tr>
@@ -20,13 +20,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Date)
+            @Html.DisplayFor(modelItem => item.Date.Value)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Caretaker.Id)
+            @Html.DisplayFor(modelItem => item.Caretaker.User.Firstname)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Patient.BloodType)
+            @Html.DisplayFor(modelItem => item.Patient.User.Firstname)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

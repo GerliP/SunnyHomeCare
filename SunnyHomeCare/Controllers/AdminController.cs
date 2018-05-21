@@ -78,6 +78,13 @@ namespace SunnyHomeCare.Controllers
             return PartialView("CaretakerPV", user);
         }
 
+        [ChildActionOnly]
+        public PartialViewResult GetVisits(int patientId)
+        {
+            List<Visit> visits = db.Patients.Find(patientId).Visits.ToList();
+            return PartialView("VisitListPV", visits);
+        }
+
         public ActionResult CreateVisit (int id)
         {
             ViewBag.PatientId = id;
@@ -103,7 +110,7 @@ namespace SunnyHomeCare.Controllers
             {
                 db.Visits.Add(visit);
                 db.SaveChanges();
-                return RedirectToAction("Visits");
+                return RedirectToAction("CreateVisit", visit.Patient_id);
             }
             else
             {

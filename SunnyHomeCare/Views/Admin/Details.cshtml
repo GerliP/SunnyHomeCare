@@ -82,7 +82,7 @@
             if (ViewBag.Role_Name == "Patient")
             {
             @Html.Partial("PatientPV", Model.Patients.FirstOrDefault(), new ViewDataDictionary<SunnyHomeCare.Models.Patient>(Model.Patients.FirstOrDefault()));
-                { Html.Action("Contact", "Admin", Model.Patients.FirstOrDefault()); }
+            @Html.Action("Contact", "Admin", Model.Patients.FirstOrDefault())
 
             }
         }

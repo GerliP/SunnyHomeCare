@@ -129,7 +129,6 @@ namespace SunnyHomeCare.Controllers
         [ChildActionOnly]
         public PartialViewResult Contact(Patient patient)
         {
-            System.Console.WriteLine(patient);
             List<PersonalContact> pc = patient.PersonalContacts.ToList();
             if (pc.Any())
             {
@@ -139,7 +138,7 @@ namespace SunnyHomeCare.Controllers
             {
                 return PartialView("PersonalContactPV", contact);
             }
-            return PartialView();
+            return PartialView("PersonalContactPV", pc.FirstOrDefault());
         }
         
         // GET: Admin/Create

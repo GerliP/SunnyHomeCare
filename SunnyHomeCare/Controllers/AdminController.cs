@@ -65,9 +65,19 @@ namespace SunnyHomeCare.Controllers
 
         }
         [ChildActionOnly]
-        public PartialViewResult Contact()
+        public PartialViewResult Contact(Patient patient)
         {
-            return PartialView("PersonalContactPV"); // or return PartialView("_QuickContact", new ContactForm());
+            System.Console.WriteLine(patient);
+            List<PersonalContact> pc = patient.PersonalContacts.ToList();
+            if (pc.Any())
+            {
+                return null;
+            }
+            foreach (PersonalContact contact in pc)
+            {
+                return PartialView("PersonalContactPV", contact);
+            }
+            return PartialView();
         }
         
         // GET: Admin/Create
@@ -92,7 +102,7 @@ namespace SunnyHomeCare.Controllers
                 ViewBag.Role_id = new SelectList(db.Roles, "Id", "Name", user.Role_id);
                 if (user.Role_id == 1)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Users");
                 }
                 else if (user.Role_id == 2)
                 {
@@ -265,7 +275,7 @@ namespace SunnyHomeCare.Controllers
             {
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Users");
             }
             ViewBag.Role_id = new SelectList(db.Roles, "Id", "Name", user.Role_id);
             return View(user);
@@ -294,7 +304,7 @@ namespace SunnyHomeCare.Controllers
             User user = db.Users.Find(id);
             db.Users.Remove(user);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Users");
         }
 
         protected override void Dispose(bool disposing)

@@ -78,11 +78,17 @@
         </dl>
     </div>
     <div>
-        @Html.Partial("PatientPV", Model.Patients.FirstOrDefault(), new ViewDataDictionary<SunnyHomeCare.Models.Patient>(Model.Patients.FirstOrDefault()));
-        @Html.Action("Contact", new ViewDataDictionary<SunnyHomeCare.Models.Patient>(Model.Patients.FirstOrDefault()));
+        @{
+            if (ViewBag.Role_Name == "Patient")
+            {
+            @Html.Partial("PatientPV", Model.Patients.FirstOrDefault(), new ViewDataDictionary<SunnyHomeCare.Models.Patient>(Model.Patients.FirstOrDefault()));
+                { Html.Action("Contact", "Admin", Model.Patients.FirstOrDefault()); }
+
+            }
+        }
     </div>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Users")
 </p>

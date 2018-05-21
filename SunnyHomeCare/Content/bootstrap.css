@@ -36,6 +36,13 @@ summary {
   display: block;
 }
 
+/* Flex container settup*/
+.flex-container {
+    display: flex;
+    flex-direction: row;
+}
+
+
 audio,
 canvas,
 video {

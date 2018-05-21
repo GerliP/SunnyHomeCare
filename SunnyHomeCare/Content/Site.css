@@ -22,9 +22,3 @@ select,
 textarea {
     max-width: 280px;
 }
-
-/* Flex container settup*/
-.flex-container {
-    display: flex;
-    flex-direction: row;
-}

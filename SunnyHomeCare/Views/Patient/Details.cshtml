@@ -34,13 +34,6 @@
             @Html.DisplayFor(model => model.Email)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Address)
@@ -65,18 +58,108 @@
         <dd>
             @Html.DisplayFor(model => model.Gender)
         </dd>
+    </dl>
+</div>
 
+<h2>Patient Info</h2>
+<div>
+    <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Role.Name)
+            @Html.DisplayNameFor(model => model.Patients.FirstOrDefault().Id)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Role.Name)
+            @Html.DisplayFor(model => model.Patients.FirstOrDefault().Id)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Patients.FirstOrDefault().BloodType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Patients.FirstOrDefault().BloodType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Patients.FirstOrDefault().Dislikes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Patients.FirstOrDefault().Dislikes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Patients.FirstOrDefault().Comments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Patients.FirstOrDefault().Comments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Patients.FirstOrDefault().Illness)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Patients.FirstOrDefault().Illness)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Patients.FirstOrDefault().Handicap)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Patients.FirstOrDefault().Handicap)
+        </dd>
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<h2>Visits</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Date
+        </th>
+        <th>
+            Caretaker Name
+        </th>
+        <th>
+            Caretaker number
+        </th>
+
+        <th>
+            Caretaker email
+        </th>
+
+        <th>
+            Caretaker gender
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Patients.FirstOrDefault().Visits)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date.Value)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Caretaker.User.Firstname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Caretaker.User.ContactNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Caretaker.User.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Caretaker.User.Gender)
+            </td>
+
+        </tr>
+    }
+</table>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>

@@ -4,10 +4,9 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>User Details</h2>
 
 <div>
-    <h4>User</h4>
     <hr />
     <div class="flex-container">
         <dl class="dl-horizontal">
@@ -77,19 +76,18 @@
 
         </dl>
     </div>
-    <div class="flex-container">
-        @{
+    @{
         // Validates if a Patient is selected and shows all neccesary info
         if (ViewBag.Role_Name == "Patient")
         {
-        @Html.Action("PatientDetails", "Admin", Model.Patients.FirstOrDefault())
-        @Html.Action("PersonalContact", "Admin", Model.Patients.FirstOrDefault())
-        @Html.Action("ServiceContact", "Admin", Model.Patients.FirstOrDefault())
+            @Html.Action("PatientDetails", "Admin", Model.Patients.FirstOrDefault());<br/>
+            @Html.Action("PersonalContact", "Admin", Model.Patients.FirstOrDefault())<br/>
+            @Html.Action("ServiceContact", "Admin", Model.Patients.FirstOrDefault())<br/>
         }
-        }
-    </div>
+    }
+  
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Users")
+    @Html.ActionLink("Back to Users", "Users")
 </p>

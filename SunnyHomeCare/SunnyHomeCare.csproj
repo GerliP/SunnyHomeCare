@@ -284,6 +284,9 @@
     <Content Include="Views\Admin\CreateVisit.cshtml" />
     <Content Include="Views\Shared\CaretakerPV.cshtml" />
     <Content Include="Views\Shared\MapMini.cshtml" />
+    <Content Include="Views\Shared\PersonalContactListPV.cshtml" />
+    <Content Include="Views\Shared\VisitListPV.cshtml" />
+    <Content Include="Views\Shared\ServiceContactListPV.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

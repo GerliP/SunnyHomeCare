@@ -1,71 +1,69 @@
 <!-- PLEASE NOTE THAT THIS IS A VERY BAD APPROACH, SCRIPTS SHOULD BE MOVED TO DIFFERENT LAYER,
      IF WE SAVE TIME, PLEASE FIX THIS-->
-
-
-@model SunnyHomeCare.Models.Patient
-
-<h2> Map test, user firstname test: @Html.DisplayNameFor(model => model.Firstname) </h2>
-
+@model SunnyHomeCare.Models.User
 <div>
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 50%;
-        width: 50%;
-      }
-    </style>
+    
+    <h2>
+       Map test, user firstname test: @Html.DisplayFor(m=>m.Address) </h2> 
+    
+    <!--<style>
+         /* Always set the map height explicitly to define the size of the div
+        * element that contains the map. */
+         .map {
+             height: 100%;
+         }
+    </style>-->
 
     <script>
-      // Note: This example requires that you consent to location sharing when
-      // prompted by your browser. If you see the error "The Geolocation service
-      // failed.", it means you probably did not give permission for the browser to
-      // locate you.
-      var map, infoWindow;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 6
-        });
+        // Note: This example requires that you consent to location sharing when
+        // prompted by your browser. If you see the error "The Geolocation service
+        // failed.", it means you probably did not give permission for the browser to
+        // locate you.
+        var map, infoWindow;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: -34.397, lng: 150.644 },
+                zoom: 6
+            });
 
-        /* Traffic layer for map, probably not needed here, just at route calculation
+            /* Traffic layer for map, probably not needed here, just at route calculation
 
-        var trafficLayer = new google.maps.TrafficLayer();
-        trafficLayer.setMap(map); */
+            var trafficLayer = new google.maps.TrafficLayer();
+            trafficLayer.setMap(map); */
 
-        infoWindow = new google.maps.InfoWindow;
+            infoWindow = new google.maps.InfoWindow;
 
-        // Try HTML5 geolocation.
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
+            // Try HTML5 geolocation.
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
 
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('Location found.');
-            infoWindow.open(map);
-            map.setCenter(pos);
-          }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-          });
-        } else {
-          // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
+                    infoWindow.setPosition(pos);
+                    infoWindow.setContent('Location found.');
+                    infoWindow.open(map);
+                    map.setCenter(pos);
+                }, function () {
+                    handleLocationError(true, infoWindow, map.getCenter());
+                });
+            } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
         }
-      }
 
-      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
-        infoWindow.open(map);
-      }
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+                'Error: The Geolocation service failed.' :
+                'Error: Your browser doesn\'t support geolocation.');
+            infoWindow.open(map);
+        }
     </script>
     <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOV6ZltDi0Wwf3OyjwS7WjcEG79ICV8Ns&callback=initMap">
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOV6ZltDi0Wwf3OyjwS7WjcEG79ICV8Ns&callback=initMap">
     </script>  <!-- If you use this key ur mom gay! + use style 1 line down-->
-    <div class="map" id="map"</div>> </div>
+    <div style="width:600px;height:500px" id="map"></div>
 </div>

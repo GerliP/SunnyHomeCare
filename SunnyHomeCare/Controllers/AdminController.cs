@@ -135,7 +135,8 @@ namespace SunnyHomeCare.Controllers
                 return HttpNotFound();
             }
             ViewBag.Role_Name = user.Role.Name;
-
+            ViewBag.Id = user.Id;
+            
             return View(user);
 
         }
@@ -165,6 +166,14 @@ namespace SunnyHomeCare.Controllers
             List<ServiceContact> sc = patient.ServiceContacts.ToList();
            
             return PartialView("ServiceContactListPV", sc);
+        }
+        // Displaying @Html.Action("ActionName","ControllerName", ObjectValue)
+        // Returns PartialViews for each instance of Service Contact in the patient that is selected
+        // This code snippets can be reused and require small changes, can probably be made into a interface
+        [ChildActionOnly]
+        public PartialViewResult MapMini(User user)
+        {
+            return PartialView("MapMini", user);
         }
 
         // GET: Admin/Create

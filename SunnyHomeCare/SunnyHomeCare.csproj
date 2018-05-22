@@ -184,9 +184,6 @@
     <Compile Include="Models\Request.cs">
       <DependentUpon>HomeCare.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Request_Patient.cs">
-      <DependentUpon>HomeCare.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Role.cs">
       <DependentUpon>HomeCare.tt</DependentUpon>
     </Compile>
@@ -287,6 +284,7 @@
     <Content Include="Views\Shared\PersonalContactListPV.cshtml" />
     <Content Include="Views\Shared\VisitListPV.cshtml" />
     <Content Include="Views\Shared\ServiceContactListPV.cshtml" />
+    <Content Include="Views\Patient\RequestCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

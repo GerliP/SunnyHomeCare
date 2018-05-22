@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="HomeCare.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="HomeCare.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Caretaker">
           <Key>
             <PropertyRef Name="Id" />
@@ -60,6 +60,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsComplete" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="Request_Patient">
           <Key>
@@ -67,7 +68,7 @@
             <PropertyRef Name="Patient_id" />
           </Key>
           <Property Name="Request_id" Type="int" Nullable="false" />
-          <Property Name="Patient_id" Type="int" Nullable="false" />
+          <Property Name="Patient_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -193,6 +194,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Request_Patient_Patient">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="Request_Patient" Type="Self.Request_Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Request_Patient">
+              <PropertyRef Name="Patient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Request_Patient_Request">
           <End Role="Request" Type="Self.Request" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -283,6 +296,10 @@
             <End Role="User" EntitySet="User" />
             <End Role="Patient" EntitySet="Patient" />
           </AssociationSet>
+          <AssociationSet Name="FK_Request_Patient_Patient" Association="Self.FK_Request_Patient_Patient">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="Request_Patient" EntitySet="Request_Patient" />
+          </AssociationSet>
           <AssociationSet Name="FK_Request_Patient_Request" Association="Self.FK_Request_Patient_Request">
             <End Role="Request" EntitySet="Request" />
             <End Role="Request_Patient" EntitySet="Request_Patient" />
@@ -300,7 +317,8 @@
             <End Role="Visit" EntitySet="Visit" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HomeCare" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -308,7 +326,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="User_id" Type="Int32" Nullable="false" />
           <Property Name="Date_of_employemnt" Type="DateTime" Precision="0" />
           <NavigationProperty Name="User" Relationship="Self.FK_Caretaker_User" FromRole="Caretaker" ToRole="User" />
@@ -329,6 +347,7 @@
           <NavigationProperty Name="Visits" Relationship="Self.FK_Visit_Patient" FromRole="Patient" ToRole="Visit" />
           <NavigationProperty Name="PersonalContacts" Relationship="Self.Patient_PersonalContact" FromRole="Patient" ToRole="PersonalContact" />
           <NavigationProperty Name="ServiceContacts" Relationship="Self.Patient_ServiceContact" FromRole="Patient" ToRole="ServiceContact" />
+          <NavigationProperty Name="Requests" Relationship="Self.Request_Patient" FromRole="Patient" ToRole="Request" />
         </EntityType>
         <EntityType Name="PersonalContact">
           <Key>
@@ -350,16 +369,8 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Request_Patient" Relationship="Self.FK_Request_Patient_Request" FromRole="Request" ToRole="Request_Patient" />
-        </EntityType>
-        <EntityType Name="Request_Patient">
-          <Key>
-            <PropertyRef Name="Request_id" />
-            <PropertyRef Name="Patient_id" />
-          </Key>
-          <Property Name="Request_id" Type="Int32" Nullable="false" />
-          <Property Name="Patient_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Request" Relationship="Self.FK_Request_Patient_Request" FromRole="Request_Patient" ToRole="Request" />
+          <Property Name="IsComplete" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Patients" Relationship="Self.Request_Patient" FromRole="Request" ToRole="Patient" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -464,20 +475,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Request_Patient_Request">
-          <End Role="Request" Type="Self.Request" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Request_Patient" Type="Self.Request_Patient" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Request">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Request_Patient">
-              <PropertyRef Name="Request_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_User_Role">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -498,12 +495,15 @@
           <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
           <End Role="ServiceContact" Type="Self.ServiceContact" Multiplicity="*" />
         </Association>
+        <Association Name="Request_Patient">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+        </Association>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Caretakers" EntityType="Self.Caretaker" />
           <EntitySet Name="Patients" EntityType="Self.Patient" />
           <EntitySet Name="PersonalContacts" EntityType="Self.PersonalContact" />
           <EntitySet Name="Requests" EntityType="Self.Request" />
-          <EntitySet Name="Request_Patient" EntityType="Self.Request_Patient" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="ServiceContacts" EntityType="Self.ServiceContact" />
           <EntitySet Name="Users" EntityType="Self.User" />
@@ -524,10 +524,6 @@
             <End Role="Patient" EntitySet="Patients" />
             <End Role="Visit" EntitySet="Visits" />
           </AssociationSet>
-          <AssociationSet Name="FK_Request_Patient_Request" Association="Self.FK_Request_Patient_Request">
-            <End Role="Request" EntitySet="Requests" />
-            <End Role="Request_Patient" EntitySet="Request_Patient" />
-          </AssociationSet>
           <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
             <End Role="Role" EntitySet="Roles" />
             <End Role="User" EntitySet="Users" />
@@ -539,6 +535,10 @@
           <AssociationSet Name="Patient_ServiceContact" Association="Self.Patient_ServiceContact">
             <End Role="Patient" EntitySet="Patients" />
             <End Role="ServiceContact" EntitySet="ServiceContacts" />
+          </AssociationSet>
+          <AssociationSet Name="Request_Patient" Association="Self.Request_Patient">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="Request" EntitySet="Requests" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -588,14 +588,7 @@
               <MappingFragment StoreEntitySet="Request">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Request_Patient">
-            <EntityTypeMapping TypeName="HomeCare.Request_Patient">
-              <MappingFragment StoreEntitySet="Request_Patient">
-                <ScalarProperty Name="Request_id" ColumnName="Request_id" />
-                <ScalarProperty Name="Patient_id" ColumnName="Patient_id" />
+                <ScalarProperty Name="IsComplete" ColumnName="IsComplete" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -659,6 +652,14 @@
             </EndProperty>
             <EndProperty Name="ServiceContact">
               <ScalarProperty Name="Id" ColumnName="ServiceContactId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Request_Patient" TypeName="HomeCare.Request_Patient" StoreEntitySet="Request_Patient">
+            <EndProperty Name="Patient">
+              <ScalarProperty Name="Id" ColumnName="Patient_id" />
+            </EndProperty>
+            <EndProperty Name="Request">
+              <ScalarProperty Name="Id" ColumnName="Request_id" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

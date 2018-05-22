@@ -113,6 +113,14 @@
         </dd>
     </dl>
 </div>
+<div>
+    <h2>Make request</h2>
+
+    <textarea rows="5" cols="50" id="requestBox"></textarea>
+    <button type="button" onclick="sendPatientRequest"> Make Request </button>
+
+</div>
+
 <h2>Visits</h2>
 
 <table class="table">
@@ -163,3 +171,15 @@
         @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
         @Html.ActionLink("Back to List", "Index")
     </p>
+<script>
+
+    function sendPatientRequest() {
+        var val = $("#requestBox").text();
+        console.log(val);
+        $.ajax({
+            url: "/Patient/CreateRequest",
+            type: "POST",
+            data: { val }
+        });
+    }
+</script>

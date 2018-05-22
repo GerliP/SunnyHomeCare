@@ -28,6 +28,14 @@ namespace SunnyHomeCare.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult CreateRequest(string requestString)
+        {
+            db.Patients.Find(Session["Id"]).Requests.Add(new Models.Request(requestString));
+            db.SaveChanges();
+            return View();
+        }
+
         // GET: Patinet/Details/5
         public ActionResult Details(int? id)
         {

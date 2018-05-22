@@ -1,8 +1,12 @@
 <!-- PLEASE NOTE THAT THIS IS A VERY BAD APPROACH, SCRIPTS SHOULD BE MOVED TO DIFFERENT LAYER,
      IF WE SAVE TIME, PLEASE FIX THIS-->
-@model SunnyHomeCare.Models.User
 
-    <h2> Map test, user firstname test: @Html.DisplayNameFor(model => model.Firstname) </h2>
+
+@model SunnyHomeCare.Models.Patient
+
+<h2> Map test, user firstname test: @Html.DisplayNameFor(model => model.Firstname) </h2>
+
+<div>
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -10,10 +14,8 @@
         height: 50%;
         width: 50%;
       }
-
     </style>
 
-    <div id="map"></div>
     <script>
       // Note: This example requires that you consent to location sharing when
       // prompted by your browser. If you see the error "The Geolocation service
@@ -26,8 +28,10 @@
           zoom: 6
         });
 
+        /* Traffic layer for map, probably not needed here, just at route calculation
+
         var trafficLayer = new google.maps.TrafficLayer();
-        trafficLayer.setMap(map);
+        trafficLayer.setMap(map); */
 
         infoWindow = new google.maps.InfoWindow;
 
@@ -61,6 +65,7 @@
       }
     </script>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOV6ZltDi0Wwf3OyjwS7WjcEG79ICV8Ns&callback=initMap">
-    </script>  <!-- If you use this key ur mom gay! -->
-  </body>
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOV6ZltDi0Wwf3OyjwS7WjcEG79ICV8Ns&callback=initMap">
+    </script>  <!-- If you use this key ur mom gay! + use style 1 line down-->
+    <div class="map" id="map"</div>> </div>
+</div>

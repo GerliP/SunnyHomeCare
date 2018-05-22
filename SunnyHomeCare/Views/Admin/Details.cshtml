@@ -80,9 +80,10 @@
         // Validates if a Patient is selected and shows all neccesary info
         if (ViewBag.Role_Name == "Patient")
         {
-            @Html.Action("PatientDetails", "Admin", Model.Patients.FirstOrDefault());<br/>
-            @Html.Action("PersonalContact", "Admin", Model.Patients.FirstOrDefault())<br/>
-            @Html.Action("ServiceContact", "Admin", Model.Patients.FirstOrDefault())<br/>
+            @Html.Action("PatientDetails", "Admin", Model.Patients.FirstOrDefault())
+            @Html.Action("PersonalContact", "Admin", Model.Patients.FirstOrDefault())
+            @Html.Action("ServiceContact", "Admin", Model.Patients.FirstOrDefault())
+            @Html.Partial("MapMini", Model.Patients.FirstOrDefault())
         }
     }
   

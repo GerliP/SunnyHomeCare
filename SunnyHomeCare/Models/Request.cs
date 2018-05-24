@@ -19,12 +19,11 @@ namespace SunnyHomeCare.Models
         {
             this.Patients = new HashSet<Patient>();
         }
-
-        public Request(string name)
-        {
-            Name = name;
-        }
     
+        public Request(string reqString)
+        {
+            this.Name = reqString;
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public byte IsComplete { get; set; }

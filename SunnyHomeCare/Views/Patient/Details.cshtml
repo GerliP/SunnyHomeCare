@@ -117,7 +117,7 @@
     <h2>Make request</h2>
 
     <textarea rows="5" cols="50" id="requestBox"></textarea>
-    <button type="button" onclick="sendPatientRequest"> Make Request </button>
+    <button type="button" id="butn"> Make Request </button>
 
 </div>
 
@@ -172,14 +172,14 @@
         @Html.ActionLink("Back to List", "Index")
     </p>
 <script>
-
-    function sendPatientRequest() {
-        var val = $("#requestBox").text();
-        console.log(val);
+    $( "#butn" ).click(function() {
+        var requestString = document.getElementById("requestBox").value;
+        console.log(requestString + " val");
         $.ajax({
             url: "/Patient/CreateRequest",
             type: "POST",
-            data: { val }
+            data: { requestString }
         });
-    }
+    });
+   
 </script>

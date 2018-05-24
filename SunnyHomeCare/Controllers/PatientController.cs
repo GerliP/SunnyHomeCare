@@ -31,7 +31,9 @@ namespace SunnyHomeCare.Controllers
         [HttpPost]
         public ActionResult CreateRequest(string requestString)
         {
-            db.Patients.Find(Session["Id"]).Requests.Add(new Models.Request(requestString));
+            db.Users.Find(Session["Id"]).Patients.FirstOrDefault().Requests
+                .Add(new Models.Request(requestString));
+            
             db.SaveChanges();
             return View();
         }

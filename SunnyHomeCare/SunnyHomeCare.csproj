@@ -285,6 +285,8 @@
     <Content Include="Views\Shared\VisitListPV.cshtml" />
     <Content Include="Views\Shared\ServiceContactListPV.cshtml" />
     <Content Include="Views\Patient\RequestCreate.cshtml" />
+    <Content Include="Views\Caretaker\CaretakerLayout.cshtml" />
+    <Content Include="Views\Caretaker\PatientInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

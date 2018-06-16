@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "Details";
+    Layout = "~/Views/Caretaker/CaretakerLayout.cshtml";
+
 }
 
 <h2>Details</h2>
@@ -76,6 +78,76 @@
 
     </dl>
 </div>
+<h2>Patient Info</h2>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Caretakers.FirstOrDefault().Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Caretakers.FirstOrDefault().Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Caretakers.FirstOrDefault().Date_of_employemnt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Caretakers.FirstOrDefault().Date_of_employemnt)
+        </dd>
+    </dl>
+</div>
+<h2>Visits</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Date
+        </th>
+        <th>
+            Patient Name
+        </th>
+        <th>
+            Patient number
+        </th>
+
+        <th>
+            Patient email
+        </th>
+
+        <th>
+            Patient gender
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Caretakers.FirstOrDefault().Visits)
+    {
+    <tr>
+        <td>
+            Patient @Html.ActionLink("Info", "PatientInfo", new { id = item.Patient.User.Id })
+        <td>
+            @Html.DisplayFor(modelItem => item.Date.Value)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Patient.User.Firstname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Patient.User.ContactNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Patient.User.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Patient.User.Gender)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Patient.User.Address)
+        </td>
+    </tr>
+    }
+</table>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")

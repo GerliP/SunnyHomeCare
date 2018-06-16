@@ -17,8 +17,15 @@ namespace SunnyHomeCare.Controllers
         // GET: Caretaker
         public ActionResult Index()
         {
-            var users = db.Users.Include(u => u.Role);
-            return View(users.ToList());
+            if (Session["Id"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            else
+            {
+                User user = db.Users.Find(Session["Id"]);
+                return View("Details", user);
+            }
         }
 
         // GET: Caretaker/Details/5
@@ -36,35 +43,38 @@ namespace SunnyHomeCare.Controllers
             return View(user);
         }
 
-        // GET: Caretaker/Create
-        public ActionResult Create()
+        public PartialViewResult PatientDetails(Patient patient)
         {
-            ViewBag.Role_id = new SelectList(db.Roles, "Id", "Name");
-            return View();
+            return PartialView("PatientPV", patient);
+        }
+        // Displaying @Html.Action("ActionName","ControllerName", ObjectValue)
+        // Returns PartialViews for each instance of Personal Contact in the patient that is selected
+        // This code snippets can be reused and require small changes, can probably be made into a interface
+        [ChildActionOnly]
+        public PartialViewResult PersonalContact(Patient patient)
+        {
+            List<PersonalContact> pc = patient.PersonalContacts.ToList();
+
+            return PartialView("PersonalContactListPV", pc);
+        }
+        // Displaying @Html.Action("ActionName","ControllerName", ObjectValue)
+        // Returns PartialViews for each instance of Service Contact in the patient that is selected
+        // This code snippets can be reused and require small changes, can probably be made into a interface
+        [ChildActionOnly]
+        public PartialViewResult ServiceContact(Patient patient)
+        {
+            List<ServiceContact> sc = patient.ServiceContacts.ToList();
+
+            return PartialView("ServiceContactListPV", sc);
         }
 
-        // POST: Caretaker/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Firstname,Lastname,Email,Password,Address,ContactNumber,Role_id,Gender")] User user)
+        public ActionResult PatientInfo(int? id)
         {
-            if (ModelState.IsValid)
+            if (Session["Id"] == null)
             {
-                db.Users.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Login", "Login");
             }
-
-            ViewBag.Role_id = new SelectList(db.Roles, "Id", "Name", user.Role_id);
-            return View(user);
-        }
-
-        // GET: Caretaker/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
+            else if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -73,60 +83,11 @@ namespace SunnyHomeCare.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Role_id = new SelectList(db.Roles, "Id", "Name", user.Role_id);
+            ViewBag.Role_Name = user.Role.Name;
+            ViewBag.Id = user.Id;
+
             return View(user);
-        }
 
-        // POST: Caretaker/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Firstname,Lastname,Email,Password,Address,ContactNumber,Role_id,Gender")] User user)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.Role_id = new SelectList(db.Roles, "Id", "Name", user.Role_id);
-            return View(user);
-        }
-
-        // GET: Caretaker/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
-
-        // POST: Caretaker/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }
